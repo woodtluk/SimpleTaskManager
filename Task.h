@@ -14,6 +14,16 @@ class Task : public QObject
     Q_OBJECT
 public:
     explicit Task(QObject *parent = 0);
+    explicit Task(QString strName, QObject *parent = 0);
+
+
+    QString getDescription() {
+        return m_strTaskDescription;
+    }
+
+    QString getName() {
+        return m_strTaskName;
+    }
 
 signals:
 

@@ -4,6 +4,7 @@
 #include <QSystemTrayIcon>
 
 #include "TaskDialog.h"
+#include "TaskListModel.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,7 +14,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    m_pTaskDialog->show();
+   // m_pTaskDialog->show();
+
+
+    ui->m_pListView->setModel(new TaskListModel(this));
 
     trayIcon->setIcon(QIcon(":/img/applications-office.png"));
     trayIcon->show();
