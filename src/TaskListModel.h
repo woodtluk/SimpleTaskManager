@@ -11,7 +11,7 @@ class TaskListModel : public QAbstractListModel
     Q_OBJECT
 public:
     explicit TaskListModel(QObject *parent = 0);
-
+    ~TaskListModel() {};
 signals:
 
 public slots:

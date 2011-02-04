@@ -15,7 +15,7 @@ class TaskDialog : public QDialog
 
 public:
     explicit TaskDialog(TaskPtr task, QWidget *parent = 0);
-    ~TaskDialog();
+    virtual ~TaskDialog();
 
 private:
     Ui::TaskDialog *ui;

@@ -1,6 +1,7 @@
 #include "TaskDialog.h"
 #include "ui_TaskDialog.h"
 
+#include "Task.h"
 
 TaskDialog::TaskDialog(TaskPtr task, QWidget *parent) :
     QDialog(parent),
