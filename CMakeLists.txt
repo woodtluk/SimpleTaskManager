@@ -75,17 +75,19 @@
   # note that we don't need \ at the end of line
   SET( SIMPLETASKMANAGER_SRCS
         ./src/main.cpp
-       	./src/MainWindow.cpp
+    ./src/MainWindow.cpp
 		./src/Task.cpp
 		./src/TaskDialog.cpp
 		./src/TaskListModel.cpp
-      )
+    ./src/Timer.cpp
+  )
 
   # another list, this time it includes all header files that should be treated with moc
   SET( SIMPLETASKMANAGER_MOC_HDRS
-        ./src/MainWindow.h   
+    ./src/MainWindow.h
     ./src/TaskDialog.h
     ./src/TaskListModel.h
+    ./src/Timer.h
   )
 
   # headers that are not treated with moc
