@@ -1,9 +1,11 @@
 #include "TaskDialog.h"
 #include "ui_TaskDialog.h"
 
-TaskDialog::TaskDialog(QWidget *parent) :
+
+TaskDialog::TaskDialog(TaskPtr task, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::TaskDialog)
+    ui(new Ui::TaskDialog),
+    m_pTask(task)
 {
     ui->setupUi(this);
 }

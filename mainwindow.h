@@ -25,6 +25,10 @@ private:
 
     TaskDialog* m_pTaskDialog;
     QSystemTrayIcon *trayIcon;
+
+private slots:
+    void on_m_pActionAddTask_triggered();
+    void on_m_pActionQuit_triggered();
 };
 
 #endif // MAINWINDOW_H

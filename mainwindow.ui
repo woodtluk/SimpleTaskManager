@@ -13,14 +13,14 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
+  <widget class="QWidget" name="mpCentralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QListView" name="m_pListView"/>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
+  <widget class="QMenuBar" name="m_pMenuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -29,16 +29,67 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="m_pMenuTasks">
+    <property name="title">
+     <string>&amp;Tasks</string>
+    </property>
+    <addaction name="m_pActionAddTask"/>
+    <addaction name="m_pActionRemoveTask"/>
+    <addaction name="m_pActionQuit"/>
+   </widget>
+   <addaction name="m_pMenuTasks"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
+  <widget class="QToolBar" name="m_pMainToolBar">
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="m_pActionAddTask"/>
+   <addaction name="m_pActionRemoveTask"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="m_pStatusBar"/>
+  <action name="m_pActionAddTask">
+   <property name="icon">
+    <iconset>
+     <normalon>:/img/list-add.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Add Task</string>
+   </property>
+   <property name="toolTip">
+    <string>Adds a new task</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="m_pActionRemoveTask">
+   <property name="icon">
+    <iconset>
+     <normalon>:/img/list-remove.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Remove Task</string>
+   </property>
+   <property name="toolTip">
+    <string>Removes selected Task</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="m_pActionQuit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

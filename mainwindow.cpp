@@ -3,23 +3,22 @@
 
 #include <QSystemTrayIcon>
 
+#include "Task.h"
 #include "TaskDialog.h"
 #include "TaskListModel.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_pTaskDialog(new TaskDialog(this)),
     trayIcon(new QSystemTrayIcon(this))
 {
     ui->setupUi(this);
 
-   // m_pTaskDialog->show();
-
+    setWindowIcon(QIcon(":/img/applications-office.png"));
 
     ui->m_pListView->setModel(new TaskListModel(this));
 
-    trayIcon->setIcon(QIcon(":/img/applications-office.png"));
+    trayIcon->setIcon(windowIcon());
     trayIcon->show();
     trayIcon->showMessage("text", "blabla", QSystemTrayIcon::Information);
 }
@@ -27,4 +26,18 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_m_pActionQuit_triggered()
+{
+    QCoreApplication::quit();
+}
+
+void MainWindow::on_m_pActionAddTask_triggered()
+{
+    TaskPtr newTask = TaskPtr(new Task());
+    TaskDialog dialog(newTask, this);
+    if (QDialog::Accepted == dialog.exec()) {
+        /// @todo add task to list
+    }
 }
