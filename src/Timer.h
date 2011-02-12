@@ -1,6 +1,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 
+#include <QObject>
 #include <QTimer>
 #include <QSharedPointer>
 
@@ -20,6 +21,9 @@ private:
     Timer();
 public:
     virtual ~Timer() {}
+private slots:
+
+    void startMinuteTimer() {start(60 * 1000);}
 
 private:
     static TimerPtr m_singleton;

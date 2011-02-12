@@ -6,11 +6,12 @@
 #include "Task.h"
 #include "TaskDialog.h"
 #include "TaskListModel.h"
+#include "Timer.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    trayIcon(new QSystemTrayIcon(this))
+    m_pTrayIcon(new QSystemTrayIcon(this))
 {
     ui->setupUi(this);
 
@@ -18,10 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->m_pListView->setModel(new TaskListModel(this));
 
-    trayIcon->setIcon(windowIcon());
-    trayIcon->show();
-    trayIcon->showMessage("text", "blabla", QSystemTrayIcon::Information);
-}
+    connect(Timer::getInstance().data(), SIGNAL(timeout()), SLOT(showMessage()));
+    }
 
 MainWindow::~MainWindow()
 {
@@ -40,4 +39,10 @@ void MainWindow::on_m_pActionAddTask_triggered()
     if (QDialog::Accepted == dialog.exec()) {
         /// @todo add task to list
     }
+}
+
+void MainWindow::showMessage() {
+  m_pTrayIcon->setIcon(windowIcon());
+  m_pTrayIcon->show();
+  m_pTrayIcon->showMessage("Time:", QTime::currentTime().toString(), QSystemTrayIcon::Information);
 }
