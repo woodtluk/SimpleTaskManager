@@ -8,19 +8,27 @@
 #include "TaskListModel.h"
 #include "Timer.h"
 
+#include "Config.h"
+
+#include <iostream>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     m_pTrayIcon(new QSystemTrayIcon(this))
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 
-    setWindowIcon(QIcon(":/img/applications-office.png"));
+  setWindowIcon(QIcon(":/img/applications-office.png"));
 
-    ui->m_pListView->setModel(new TaskListModel(this));
+  ui->m_pListView->setModel(new TaskListModel(this));
 
-    connect(Timer::getInstance().data(), SIGNAL(timeout()), SLOT(showMessage()));
-    }
+  connect(Timer::getInstance().data(), SIGNAL(timeout()), SLOT(showMessage()));
+
+  std::cout << "Version: "
+            << APPLICATION_VERSION_MAJOR << "." <<
+            APPLICATION_VERSION_MINOR << std::endl;
+}
 
 MainWindow::~MainWindow()
 {

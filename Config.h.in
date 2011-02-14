@@ -1,0 +1,8 @@
+#ifndef CONFIG_H_IN
+#define CONFIG_H_IN
+
+#define APPLICATION_VERSION_MAJOR @SimpleTaskManager_VERSION_MAJOR@
+#define APPLICATION_VERSION_MINOR @SimpleTaskManager_VERSION_MINOR@
+
+
+#endif // CONFIG_H_IN
