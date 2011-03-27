@@ -15,10 +15,13 @@ public:
 signals:
 
 public slots:
-
+  void checkTasksForAlarm();
 private:
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+
+
+private slots:
 
 private:
     QList<TaskPtr> m_lstTasks;

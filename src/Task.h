@@ -24,6 +24,15 @@ public:
         return m_strTaskName;
     }
 
+    QTime getBeginTime() {
+      return m_timeBegin;
+    }
+
+    QTime getAlarmBeforeTaskTime() {
+      return m_timeAlarmBeforeTask;
+    }
+
+
 signals:
 
 public slots:
@@ -31,6 +40,8 @@ public slots:
 private:
     QTime m_timeBegin;
     QTime m_timeDuration;
+    QTime m_timeAlarmBeforeTask;
+
 
     QString m_strTaskName;
     QString m_strTaskDescription;

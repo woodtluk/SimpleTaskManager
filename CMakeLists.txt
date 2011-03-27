@@ -3,6 +3,11 @@ PROJECT(SimpleTaskManager)
 
 cmake_minimum_required(VERSION 2.8)
 
+# 								absolut						relative
+# project source dir: 		${CMAKE_SOURCE_DIR}			${CMAKE_CURRENT_SOURCE_DIR}
+# build dir:				${CMAKE_BINARY_DIR} 		${CMAKE_CURRENT_BINARY_DIR}
+
+
 SET(CMAKE_BUILD_TYPE Debug)
 
 # Version

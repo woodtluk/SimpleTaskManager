@@ -1,11 +1,17 @@
 #include "TaskListModel.h"
 
+#include <QMessageBox>
+
+#include "Timer.h"
+
 TaskListModel::TaskListModel(QObject *parent) :
     QAbstractListModel(parent)
 {
+
     for (int i=0; i<5; i++)
         m_lstTasks.append(TaskPtr(new Task(QString::number(i))));
-}
+
+  }
 
 int TaskListModel::rowCount(const QModelIndex & parent /* = QModelIndex() */) const {
     return m_lstTasks.count();
@@ -22,3 +28,15 @@ QVariant TaskListModel::data(const QModelIndex & index, int role /*= Qt::Display
     return QVariant();
 
 }
+void TaskListModel::checkTasksForAlarm() {
+  QTime currentTime = QTime::currentTime();
+  foreach(TaskPtr task, m_lstTasks) {
+    if(task->getBeginTime().hour() - task->getAlarmBeforeTaskTime().hour() == currentTime.hour() &&
+       task->getBeginTime().minute() - task->getAlarmBeforeTaskTime().minute() == currentTime.minute()) {
+      QString st = tr("Alarm");
+      QMessageBox::information(0, st, st);//, QMessageBox::Ok,QMessageBox::Ok);
+    }
+  }
+}
+
+

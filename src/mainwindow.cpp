@@ -15,15 +15,19 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_pTrayIcon(new QSystemTrayIcon(this))
+    m_pTrayIcon(new QSystemTrayIcon(this)),
+    m_pTaskListModel(new TaskListModel(this))
 {
   ui->setupUi(this);
 
   setWindowIcon(QIcon(":/img/applications-office.png"));
 
-  ui->m_pListView->setModel(new TaskListModel(this));
+  void checkTasksForAlarm();
 
-  connect(Timer::getInstance().data(), SIGNAL(timeout()), SLOT(showMessage()));
+
+  ui->m_pListView->setModel(m_pTaskListModel);
+
+  connect(Timer::getInstance().data(), SIGNAL(timeout()), m_pTaskListModel, SLOT(checkTasksForAlarm()));
 
   std::cout << "Version: "
             << APPLICATION_VERSION_MAJOR << "." <<

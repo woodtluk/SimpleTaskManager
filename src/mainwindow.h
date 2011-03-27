@@ -5,8 +5,9 @@
 
 
 class QSystemTrayIcon;
-class TaskDialog;
 class QMenu;
+class TaskDialog;
+class TaskListModel;
 
 namespace Ui {
     class MainWindow;
@@ -31,6 +32,9 @@ private slots:
     void on_m_pActionQuit_triggered();
 
     void showMessage();
-};
+private:
+
+    TaskListModel *m_pTaskListModel;
+  };
 
 #endif // MAINWINDOW_H
