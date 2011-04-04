@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>402</width>
     <height>300</height>
    </rect>
   </property>
@@ -72,7 +72,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="m_pComboBox">
+      <widget class="QComboBox" name="m_pComboBoxAlarmBefore">
        <item>
         <property name="text">
          <string>0 Minutes</string>
@@ -125,7 +125,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QTextEdit" name="m_pTextEdit"/>
+    <widget class="QTextEdit" name="m_pTextEditTaskDescription">
+     <property name="acceptRichText">
+      <bool>false</bool>
+     </property>
+    </widget>
    </item>
    <item>
     <spacer name="verticalSpacer">

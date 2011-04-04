@@ -21,6 +21,10 @@ private:
     Ui::TaskDialog *ui;
 
     TaskPtr m_pTask;
+
+private slots:
+    void on_m_pOkAbbortButtonBox_accepted();
+    void on_m_pOkAbbortButtonBox_rejected();
 };
 
 #endif // TASKDIALOG_H
