@@ -20,7 +20,7 @@ TaskDialog::~TaskDialog()
 
 void TaskDialog::on_m_pOkAbbortButtonBox_rejected()
 {
-  close();
+  done(QDialog::Rejected);
 }
 
 void TaskDialog::on_m_pOkAbbortButtonBox_accepted()
@@ -60,5 +60,6 @@ void TaskDialog::on_m_pOkAbbortButtonBox_accepted()
 
   m_pTask->setDurationTime(ui->m_pTimeEditDuration->time());
 
-  close();
+
+  done(QDialog::Accepted);
 }

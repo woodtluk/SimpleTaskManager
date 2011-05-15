@@ -8,9 +8,9 @@ TaskListModel::TaskListModel(QObject *parent) :
     QAbstractListModel(parent)
 {
 
-    for (int i=0; i<5; i++)
+ /*   for (int i=0; i<5; i++)
         m_lstTasks.append(TaskPtr(new Task(QString::number(i))));
-
+*/
   }
 
 int TaskListModel::rowCount(const QModelIndex & parent /* = QModelIndex() */) const {
@@ -39,4 +39,22 @@ void TaskListModel::checkTasksForAlarm() {
   }
 }
 
+bool TaskListModel::insertRow ( int row, const QModelIndex & parent /*= QModelIndex()*/ )
+{
+  beginInsertRows(parent, row, row);
 
+  m_lstTasks.append(m_taskToAdd);
+
+  endInsertRows();
+
+  return true;
+}
+
+bool TaskListModel::removeRow ( int row, const QModelIndex & parent /* = QModelIndex() */)
+{
+  beginRemoveColumns(parent, row, row);
+
+  endRemoveColumns();
+
+  return true;
+}

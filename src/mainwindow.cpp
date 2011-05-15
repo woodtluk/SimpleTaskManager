@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
   setWindowIcon(QIcon(":/img/applications-office.png"));
 
-  void checkTasksForAlarm();
+ // void checkTasksForAlarm();
 
 
   ui->m_pListView->setModel(m_pTaskListModel);
@@ -48,8 +48,9 @@ void MainWindow::on_m_pActionAddTask_triggered()
 {
     TaskPtr newTask = TaskPtr(new Task());
     TaskDialog dialog(newTask, this);
-    if (QDialog::Accepted == dialog.exec()) {
-        /// @todo add task to list
+    /*QDialog::DialogCode*/ int code = dialog.exec();
+    if (QDialog::Accepted == code) {
+        m_pTaskListModel->addTask(newTask);
     }
 }
 
@@ -58,3 +59,4 @@ void MainWindow::showMessage() {
   m_pTrayIcon->show();
   m_pTrayIcon->showMessage("Time:", QTime::currentTime().toString(), QSystemTrayIcon::Information);
 }
+
