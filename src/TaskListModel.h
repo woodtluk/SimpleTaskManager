@@ -11,16 +11,23 @@ class TaskListModel : public QAbstractListModel
     Q_OBJECT
 public:
     explicit TaskListModel(QObject *parent = 0);
-    ~TaskListModel() {};
+    virtual ~TaskListModel() {};
 
     void addTask(TaskPtr task) {
+      //beginResetModel();
       m_taskToAdd = task;
       insertRow(m_lstTasks.count());
-      reset();  ///< @todo Use beginResetModel() and endResetModel() instead
+      //endResetModel();
+    }
+
+    void removeTask(int row)
+    {
+     removeRow(row);
     }
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+    Qt::ItemFlags flags ( const QModelIndex & index ) const;
 
     bool insertRow ( int row, const QModelIndex & parent = QModelIndex() );
     bool removeRow ( int row, const QModelIndex & parent = QModelIndex() );

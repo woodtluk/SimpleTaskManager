@@ -28,6 +28,13 @@ QVariant TaskListModel::data(const QModelIndex & index, int role /*= Qt::Display
     return QVariant();
 
 }
+
+Qt::ItemFlags TaskListModel::flags ( const QModelIndex & index ) const {
+  Q_UNUSED(index);
+
+  return Qt::ItemIsSelectable	| Qt::ItemIsEditable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled;
+}
+
 void TaskListModel::checkTasksForAlarm() {
   QTime currentTime = QTime::currentTime();
   foreach(TaskPtr task, m_lstTasks) {
@@ -53,7 +60,7 @@ bool TaskListModel::insertRow ( int row, const QModelIndex & parent /*= QModelIn
 bool TaskListModel::removeRow ( int row, const QModelIndex & parent /* = QModelIndex() */)
 {
   beginRemoveColumns(parent, row, row);
-
+  m_lstTasks.removeAt(row);
   endRemoveColumns();
 
   return true;

@@ -54,6 +54,18 @@ void MainWindow::on_m_pActionAddTask_triggered()
     }
 }
 
+
+void MainWindow::on_m_pActionRemoveTask_triggered()
+{
+  QModelIndex index = ui->m_pListView->selectionModel()->currentIndex();
+  if(index.isValid())
+  {
+    m_pTaskListModel->removeTask(index.row());
+  }
+
+}
+
+
 void MainWindow::showMessage() {
   m_pTrayIcon->setIcon(windowIcon());
   m_pTrayIcon->show();

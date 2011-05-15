@@ -28,6 +28,7 @@ private:
     QSystemTrayIcon *m_pTrayIcon;
 
 private slots:
+    void on_m_pActionRemoveTask_triggered();
     void on_m_pActionAddTask_triggered();
     void on_m_pActionQuit_triggered();
 
