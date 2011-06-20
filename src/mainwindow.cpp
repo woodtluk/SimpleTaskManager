@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QSystemTrayIcon>
+#include <QModelIndex>
 
 #include "Task.h"
 #include "TaskDialog.h"
@@ -24,6 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
  // void checkTasksForAlarm();
 
+  ui->m_pListView->setEditTriggers(QAbstractItemView::SelectedClicked | QAbstractItemView::EditKeyPressed);
+
+  connect(ui->m_pListView, SIGNAL(doubleClicked(const QModelIndex&)),SLOT(editTask(const QModelIndex&)));
 
   ui->m_pListView->setModel(m_pTaskListModel);
 
@@ -65,6 +69,15 @@ void MainWindow::on_m_pActionRemoveTask_triggered()
 
 }
 
+void MainWindow::editTask(const QModelIndex& index) {
+  TaskListModel* model = qobject_cast<TaskListModel*>(ui->m_pListView->model());
+  TaskPtr task = model->getTask(index.row());
+  TaskDialog dialog(task, this);
+  /*QDialog::DialogCode*/ int code = dialog.exec();
+  if (QDialog::Accepted == code) {
+      ui->m_pListView->update(index);
+  }
+}
 
 void MainWindow::showMessage() {
   m_pTrayIcon->setIcon(windowIcon());

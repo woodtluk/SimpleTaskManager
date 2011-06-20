@@ -3,6 +3,7 @@
 
 #include <QTime>
 #include <QSharedPointer>
+#include <QVariant>
 
 class Task;
 
@@ -69,5 +70,7 @@ private:
     QString m_strTaskName;
     QString m_strTaskDescription;
 };
+
+ Q_DECLARE_METATYPE(TaskPtr);
 
 #endif // TASK_H

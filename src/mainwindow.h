@@ -6,6 +6,7 @@
 
 class QSystemTrayIcon;
 class QMenu;
+class QModelIndex;
 class TaskDialog;
 class TaskListModel;
 
@@ -32,7 +33,9 @@ private slots:
     void on_m_pActionAddTask_triggered();
     void on_m_pActionQuit_triggered();
 
+    void editTask(const QModelIndex& index);
     void showMessage();
+
 private:
 
     TaskListModel *m_pTaskListModel;
