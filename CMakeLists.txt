@@ -3,6 +3,9 @@ PROJECT(SimpleTaskManager)
 
 cmake_minimum_required(VERSION 2.8)
 
+SET(QT_MIN_VERSION "4.2.0")
+
+
 # 								absolut						relative
 # project source dir: 		${CMAKE_SOURCE_DIR}			${CMAKE_CURRENT_SOURCE_DIR}
 # build dir:				${CMAKE_BINARY_DIR} 		${CMAKE_CURRENT_BINARY_DIR}
@@ -46,6 +49,19 @@ ENDIF(CMAKE_COMPILER_IS_GNUCXX )
 # this command finds Qt4 libraries and sets all required variables
 # note that it's Qt4, not QT4 or qt4
 FIND_PACKAGE( Qt4 REQUIRED )
+
+IF(NOT QT4_FOUND)
+  MESSAGE(SEND_ERROR "Failed to find Qt 4.3 or greater.")
+ELSE(NOT QT4_FOUND)
+
+# don't know exactly what that is
+SET(CMAKE_PACKAGE_QTGUI TRUE)
+# i don't want to install or package the qt gui on windows 
+# unless qt is static
+IF(WIN32 AND NOT QT_CONFIG MATCHES "static")
+  SET(CMAKE_PACKAGE_QTGUI FALSE)
+ENDIF(WIN32 AND NOT QT_CONFIG MATCHES "static")
+
 
 # add some useful macros and variables
 # (QT_USE_FILE is a variable defined by FIND_PACKAGE( Qt4 ) that contains a path to CMake script)
@@ -139,6 +155,9 @@ QT4_ADD_RESOURCES( SIMPLETASKMANAGER_RC_SRCS ${SIMPLETASKMANAGER_RCS} )
 # we need this to be able to include headers produced by uic in our code
 # (CMAKE_BINARY_DIR holds a path to the build directory, while INCLUDE_DIRECTORIES() works just like INCLUDEPATH from qmake)
 INCLUDE_DIRECTORIES( ${CMAKE_BINARY_DIR} )
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+
 
 # here we instruct CMake to build SIMPLETASKMANAGER executable from all of the source files
 ADD_EXECUTABLE( SimpleTaskManager WIN32 ${SIMPLETASKMANAGER_SRCS} ${SIMPLETASKMANAGER_HDRS} ${SIMPLETASKMANAGER_MOC_SRCS} ${SIMPLETASKMANAGER_RC_SRCS} ${SIMPLETASKMANAGER_UI_HDRS} )
@@ -155,8 +174,46 @@ find_package(Doxygen)
 if(DOXYGEN_FOUND)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
 add_custom_target(doc ALL # if ALL is removed from this line documentation is only build with 'make doc'
-${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-COMMENT "Generating API documentation with Doxygen" VERBATIM
+  ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+  COMMENT "Generating API documentation with Doxygen" VERBATIM
 )
 endif(DOXYGEN_FOUND)
+
+
+
+ # IF(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.4)
+    # SET(CMAKE_INSTALL_DESTINATION_ARGS 
+      # BUNDLE DESTINATION "${CMAKE_BUNDLE_LOCATION}")
+  # ENDIF(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.4)
+ # if qt is not static and we are on windows then skip the install
+  #I don't want to distribute qt dlls
+  # IF(CMAKE_PACKAGE_QTGUI)
+    # INSTALL(TARGETS cmake-gui RUNTIME DESTINATION bin
+    # ${CMAKE_INSTALL_DESTINATION_ARGS})
+  # ENDIF(CMAKE_PACKAGE_QTGUI)
+
+  # IF(UNIX)
+ #   install a desktop file so CMake appears in the application start menu
+    with an icon
+    # INSTALL(FILES CMake.desktop DESTINATION share/applications )
+    # INSTALL(FILES CMakeSetup.png DESTINATION share/pixmaps )
+    # INSTALL(FILES cmakecache.xml DESTINATION share/mime/packages )
+  # ENDIF(UNIX)
+
+  # IF(APPLE)
+    # SET(CMAKE_POSTFLIGHT_SCRIPT
+      # "${CMake_BINARY_DIR}/Source/QtDialog/postflight.sh")
+    # SET(CMAKE_POSTUPGRADE_SCRIPT
+      # "${CMake_BINARY_DIR}/Source/QtDialog/postupgrade.sh")
+    # configure_file("${CMake_SOURCE_DIR}/Source/QtDialog/postflight.sh.in"
+      # "${CMake_BINARY_DIR}/Source/QtDialog/postflight.sh")
+    # configure_file("${CMake_SOURCE_DIR}/Source/QtDialog/postupgrade.sh.in"
+      # "${CMake_BINARY_DIR}/Source/QtDialog/postupgrade.sh")
+    # INSTALL(CODE "set(input_file 
+       # \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/MacOS/cmake-gui\")")
+    # INSTALL(SCRIPT "${CMake_SOURCE_DIR}/Source/QtDialog/CMakeIngestOSXBundleLibraries.cmake")
+  # ENDIF(APPLE)
+  # CONFIGURE_FILE("${QtDialog_SOURCE_DIR}/QtDialogCPack.cmake.in"
+    # "${QtDialog_BINARY_DIR}/QtDialogCPack.cmake" @ONLY)    
+ENDIF(NOT QT4_FOUND)
