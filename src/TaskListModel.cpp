@@ -22,23 +22,27 @@ QVariant TaskListModel::data(const QModelIndex & index, int role /*= Qt::Display
     if (!index.isValid())
         return QVariant();
 
-    if (Qt::DisplayRole == role) {
+    if (Qt::DisplayRole == role || Qt::EditRole == role) {
         return m_lstTasks.at(index.row())->getName();
     }
 
     return QVariant();
 }
 
-bool TaskListModel::setData(const QModelIndex &index,
-                              const QVariant &value, int role)
-{
-    if (index.isValid() && role == Qt::EditRole) {
 
-#error Work properly with QVariant and conversion m_lstTasks.replace(index.row(), value::convert(Task));
-        emit dataChanged(index, index);
-        return true;
-    }
-    return false;
+bool TaskListModel::setData(const QModelIndex& index, const QVariant& value, int role /*=Qt::EditRole*/) {
+  if (!index.isValid())
+      return false;
+/// @todo do this properly and take data widget mapper in account
+  if (Qt::EditRole == role) {
+    m_lstTasks.at(index.row())->setName(value.toString());
+  }
+
+  return false;
+}
+
+TaskPtr TaskListModel::getTask(int index) const {
+  return m_lstTasks.at(index);
 }
 
 Qt::ItemFlags TaskListModel::flags ( const QModelIndex & index ) const {

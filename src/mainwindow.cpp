@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QSystemTrayIcon>
+#include <QModelIndex>
 
 #include "Task.h"
 #include "TaskDialog.h"
@@ -16,7 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     m_pTrayIcon(new QSystemTrayIcon(this)),
-    m_pTaskListModel(new TaskListModel(this))
+    m_pTaskListModel(new TaskListModel(this)),
+    m_pTaskDialog(new TaskDialog(m_pTaskListModel, this))
 {
   ui->setupUi(this);
 
@@ -24,6 +26,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
  // void checkTasksForAlarm();
 
+  ui->m_pListView->setEditTriggers(QAbstractItemView::SelectedClicked | QAbstractItemView::EditKeyPressed);
+
+  connect(ui->m_pListView, SIGNAL(doubleClicked(const QModelIndex&)),SLOT(editTask(const QModelIndex&)));
 
   ui->m_pListView->setModel(m_pTaskListModel);
 
@@ -46,11 +51,19 @@ void MainWindow::on_m_pActionQuit_triggered()
 
 void MainWindow::on_m_pActionAddTask_triggered()
 {
+
     TaskPtr newTask = TaskPtr(new Task());
-    TaskDialog dialog(newTask, this);
-    /*QDialog::DialogCode*/ int code = dialog.exec();
+    m_pTaskListModel->addTask(newTask);
+
+    m_pTaskDialog->toLast();
+
+    /*QDialog::DialogCode*/ int code = m_pTaskDialog->exec();
     if (QDialog::Accepted == code) {
-        m_pTaskListModel->addTask(newTask);
+        m_pTaskDialog->submit();
+    }
+    else
+    {
+      m_pTaskDialog->revert();
     }
 }
 
@@ -65,6 +78,19 @@ void MainWindow::on_m_pActionRemoveTask_triggered()
 
 }
 
+void MainWindow::editTask(const QModelIndex& index) {
+  /// @todo addapt this to the task dialog with data mapper
+  m_pTaskDialog->setCurrentModelIndex(index);
+  /*QDialog::DialogCode*/ int code = m_pTaskDialog->exec();
+  if (QDialog::Accepted == code) {
+    m_pTaskDialog->submit();
+    ui->m_pListView->update(index);
+  }
+  else
+  {
+    m_pTaskDialog->revert();
+  }
+}
 
 void MainWindow::showMessage() {
   m_pTrayIcon->setIcon(windowIcon());

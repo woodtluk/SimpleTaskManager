@@ -71,7 +71,6 @@ private:
     QString m_strTaskDescription;
 };
 
-Q_DECLARE_METATYPE(Task);
-
+ Q_DECLARE_METATYPE(TaskPtr);
 
 #endif // TASK_H
