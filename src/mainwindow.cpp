@@ -17,7 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     m_pTrayIcon(new QSystemTrayIcon(this)),
-    m_pTaskListModel(new TaskListModel(this))
+    m_pTaskListModel(new TaskListModel(this)),
+    m_pTaskDialog(new TaskDialog(m_pTaskListModel, this))
 {
   ui->setupUi(this);
 
@@ -50,11 +51,19 @@ void MainWindow::on_m_pActionQuit_triggered()
 
 void MainWindow::on_m_pActionAddTask_triggered()
 {
+
     TaskPtr newTask = TaskPtr(new Task());
-    TaskDialog dialog(newTask, this);
-    /*QDialog::DialogCode*/ int code = dialog.exec();
+    m_pTaskListModel->addTask(newTask);
+
+    m_pTaskDialog->toLast();
+
+    /*QDialog::DialogCode*/ int code = m_pTaskDialog->exec();
     if (QDialog::Accepted == code) {
-        m_pTaskListModel->addTask(newTask);
+        m_pTaskDialog->submit();
+    }
+    else
+    {
+      m_pTaskDialog->revert();
     }
 }
 
@@ -70,12 +79,16 @@ void MainWindow::on_m_pActionRemoveTask_triggered()
 }
 
 void MainWindow::editTask(const QModelIndex& index) {
-  TaskListModel* model = qobject_cast<TaskListModel*>(ui->m_pListView->model());
-  TaskPtr task = model->getTask(index.row());
-  TaskDialog dialog(task, this);
-  /*QDialog::DialogCode*/ int code = dialog.exec();
+  /// @todo addapt this to the task dialog with data mapper
+  m_pTaskDialog->setCurrentModelIndex(index);
+  /*QDialog::DialogCode*/ int code = m_pTaskDialog->exec();
   if (QDialog::Accepted == code) {
-      ui->m_pListView->update(index);
+    m_pTaskDialog->submit();
+    ui->m_pListView->update(index);
+  }
+  else
+  {
+    m_pTaskDialog->revert();
   }
 }
 

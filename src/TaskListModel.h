@@ -14,10 +14,10 @@ public:
     virtual ~TaskListModel() {};
 
     void addTask(TaskPtr task) {
-      //beginResetModel();
+      beginResetModel();
       m_taskToAdd = task;
       insertRow(m_lstTasks.count());
-      //endResetModel();
+      endResetModel();
     }
 
     void removeTask(int row)

@@ -1,19 +1,24 @@
 #include "TaskDialog.h"
 #include "ui_TaskDialog.h"
 
+#include <QDataWidgetMapper>
+
 #include "Task.h"
+#include "TaskListModel.h"
 
 #include <QDebug>
 
-TaskDialog::TaskDialog(TaskPtr task, QWidget *parent) :
+TaskDialog::TaskDialog(TaskListModel *pModel, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::TaskDialog),
-    m_pTask(task)
+    m_pDataWidgetMapper(new QDataWidgetMapper(this))
 {
     ui->setupUi(this);
 
+    m_pDataWidgetMapper->setModel(pModel);
 
-    ui->m_pLineEditTaskName->setText(m_pTask->getName());
+
+    //ui->m_pLineEditTaskName->setText(m_pTask->getName());
     /** @todo ui->m_pTextEditTaskDescription->document()->set;
 
     m_pTask->setBeginTime(ui->m_pTimeEditBegin->time());
@@ -65,7 +70,8 @@ void TaskDialog::on_m_pOkAbbortButtonBox_rejected()
 
 void TaskDialog::on_m_pOkAbbortButtonBox_accepted()
 {
-  m_pTask->setName(ui->m_pLineEditTaskName->text());
+  /// @todo use data mapper
+  /*m_pTask->setName(ui->m_pLineEditTaskName->text());
   m_pTask->setDescription(ui->m_pTextEditTaskDescription->document()->toPlainText());
 
   m_pTask->setBeginTime(ui->m_pTimeEditBegin->time());
@@ -100,6 +106,6 @@ void TaskDialog::on_m_pOkAbbortButtonBox_accepted()
 
   m_pTask->setDurationTime(ui->m_pTimeEditDuration->time());
 
-
+*/
   done(QDialog::Accepted);
 }
