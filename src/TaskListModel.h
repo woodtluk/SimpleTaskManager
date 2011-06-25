@@ -27,6 +27,7 @@ public:
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
     Qt::ItemFlags flags ( const QModelIndex & index ) const;
 
     bool insertRow ( int row, const QModelIndex & parent = QModelIndex() );

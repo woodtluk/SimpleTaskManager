@@ -3,6 +3,7 @@
 #include <QMessageBox>
 
 #include "Timer.h"
+#include "Task.h"
 
 TaskListModel::TaskListModel(QObject *parent) :
     QAbstractListModel(parent)
@@ -26,7 +27,18 @@ QVariant TaskListModel::data(const QModelIndex & index, int role /*= Qt::Display
     }
 
     return QVariant();
+}
 
+bool TaskListModel::setData(const QModelIndex &index,
+                              const QVariant &value, int role)
+{
+    if (index.isValid() && role == Qt::EditRole) {
+
+#error Work properly with QVariant and conversion m_lstTasks.replace(index.row(), value::convert(Task));
+        emit dataChanged(index, index);
+        return true;
+    }
+    return false;
 }
 
 Qt::ItemFlags TaskListModel::flags ( const QModelIndex & index ) const {

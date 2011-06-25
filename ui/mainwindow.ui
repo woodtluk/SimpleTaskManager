@@ -53,6 +53,9 @@
    <addaction name="m_pMenuTasks"/>
   </widget>
   <widget class="QToolBar" name="m_pMainToolBar">
+   <property name="windowTitle">
+    <string>Tasks</string>
+   </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>

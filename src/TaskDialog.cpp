@@ -4,6 +4,7 @@
 #include "Task.h"
 
 #include <QDebug>
+#include <QMessageBox>
 
 TaskDialog::TaskDialog(TaskPtr task, QWidget *parent) :
     QDialog(parent),
@@ -25,6 +26,11 @@ void TaskDialog::on_m_pOkAbbortButtonBox_rejected()
 
 void TaskDialog::on_m_pOkAbbortButtonBox_accepted()
 {
+  if (ui->m_pLineEditTaskName->text().isEmpty()) {
+    QMessageBox::warning(this, "Missing Task Name", "You need to provide at least a name for your task");
+    return;
+  }
+
   m_pTask->setName(ui->m_pLineEditTaskName->text());
   m_pTask->setDescription(ui->m_pTextEditTaskDescription->document()->toPlainText());
 

@@ -21,6 +21,9 @@
        <property name="text">
         <string>Task Name</string>
        </property>
+       <property name="buddy">
+        <cstring>m_pLineEditTaskName</cstring>
+       </property>
       </widget>
      </item>
      <item>
@@ -34,6 +37,9 @@
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>Begin</string>
+       </property>
+       <property name="buddy">
+        <cstring>m_pTimeEditBegin</cstring>
        </property>
       </widget>
      </item>
@@ -52,6 +58,9 @@
        <property name="text">
         <string>Duration:</string>
        </property>
+       <property name="buddy">
+        <cstring>m_pTimeEditDuration</cstring>
+       </property>
       </widget>
      </item>
      <item>
@@ -68,6 +77,9 @@
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Alarm:</string>
+       </property>
+       <property name="buddy">
+        <cstring>m_pComboBoxAlarmBefore</cstring>
        </property>
       </widget>
      </item>
@@ -122,10 +134,16 @@
      <property name="text">
       <string>Task Desription</string>
      </property>
+     <property name="buddy">
+      <cstring>m_pTextEditTaskDescription</cstring>
+     </property>
     </widget>
    </item>
    <item>
     <widget class="QTextEdit" name="m_pTextEditTaskDescription">
+     <property name="tabChangesFocus">
+      <bool>true</bool>
+     </property>
      <property name="acceptRichText">
       <bool>false</bool>
      </property>
@@ -153,6 +171,14 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_pLineEditTaskName</tabstop>
+  <tabstop>m_pTimeEditBegin</tabstop>
+  <tabstop>m_pTimeEditDuration</tabstop>
+  <tabstop>m_pComboBoxAlarmBefore</tabstop>
+  <tabstop>m_pTextEditTaskDescription</tabstop>
+  <tabstop>m_pOkAbbortButtonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
