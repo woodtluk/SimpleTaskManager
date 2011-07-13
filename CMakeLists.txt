@@ -108,7 +108,7 @@ SET(
 #  linked into our build. Not needed on Unix/OS X/Linux which is why we have the
 #  IF(WIN32) conditional.
 IF (WIN32)
-    SET (QT_USE_QTMAIN TRUE)
+#    SET (QT_USE_QTMAIN TRUE)
 ENDIF (WIN32)
 
 # with SET() command you can change variables or define new ones
