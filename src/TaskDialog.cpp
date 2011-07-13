@@ -18,10 +18,17 @@ TaskDialog::~TaskDialog()
     delete ui;
 }
 
+
+void TaskDialog::disableBrowseButtons(bool disable)
+{
+  ui->m_pWidgetBrowseButtons->setVisible(!disable);
+}
+
 void TaskDialog::on_m_pOkAbbortButtonBox_rejected()
 {
   done(QDialog::Rejected);
 }
+
 
 void TaskDialog::on_m_pOkAbbortButtonBox_accepted()
 {

@@ -153,52 +153,54 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QToolButton" name="m_pButtonFirstTask">
-         <property name="text">
-          <string>...</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../rsc/resources.qrc">
-           <normaloff>:/img/go-top.png</normaloff>:/img/go-top.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="m_pButtonPreviousTask">
-         <property name="text">
-          <string>...</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../rsc/resources.qrc">
-           <normaloff>:/img/go-up.png</normaloff>:/img/go-up.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="m_pButtonNextTask">
-         <property name="text">
-          <string>...</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../rsc/resources.qrc">
-           <normaloff>:/img/go-down.png</normaloff>:/img/go-down.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="m_pButtonLastTask">
-         <property name="text">
-          <string>...</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../rsc/resources.qrc">
-           <normaloff>:/img/go-bottom.png</normaloff>:/img/go-bottom.png</iconset>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QWidget" name="m_pWidgetBrowseButtons" native="true">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QToolButton" name="m_pButtonFirstTask">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../rsc/resources.qrc">
+            <normaloff>:/img/go-top.png</normaloff>:/img/go-top.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="m_pButtonPreviousTask">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../rsc/resources.qrc">
+            <normaloff>:/img/go-up.png</normaloff>:/img/go-up.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="m_pButtonNextTask">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../rsc/resources.qrc">
+            <normaloff>:/img/go-down.png</normaloff>:/img/go-down.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="m_pButtonLastTask">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../rsc/resources.qrc">
+            <normaloff>:/img/go-bottom.png</normaloff>:/img/go-bottom.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </item>
      <item>
       <spacer name="horizontalSpacer">

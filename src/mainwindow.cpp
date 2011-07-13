@@ -10,7 +10,7 @@
 
 #include "Config.h"
 
-#include <iostream>
+//#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -29,9 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
   connect(Timer::getInstance().data(), SIGNAL(timeout()), m_pTaskListModel, SLOT(checkTasksForAlarm()));
 
-  std::cout << "Version: "
+ /* std::cout << "Version: "
             << APPLICATION_VERSION_MAJOR << "." <<
-            APPLICATION_VERSION_MINOR << std::endl;
+            APPLICATION_VERSION_MINOR << std::endl;*/
 }
 
 MainWindow::~MainWindow()

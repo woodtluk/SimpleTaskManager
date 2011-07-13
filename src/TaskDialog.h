@@ -17,6 +17,7 @@ public:
     explicit TaskDialog(TaskPtr task, QWidget *parent = 0);
     virtual ~TaskDialog();
 
+    void disableBrowseButtons(bool disable);
 private:
     Ui::TaskDialog *ui;
 

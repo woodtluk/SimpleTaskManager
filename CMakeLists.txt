@@ -30,13 +30,20 @@ include_directories("${PROJECT_BINARY_DIR}")
 # enable warnings
 #ADD_DEFINITIONS( -c -g -Wall -frtti -fexceptions -mthreads -enable-stdcall-fixup -Wl,-enable-auto-import -Wl,-enable-runtime-pseudo-reloc)
 #SET(CMAKE_CXX_FLAGS "-Wall")
-ADD_DEFINITIONS( -Wall )
-
 
 # enable warnings
 IF(CMAKE_COMPILER_IS_GNUCXX )
   ADD_DEFINITIONS( -g -Wall )
 ENDIF(CMAKE_COMPILER_IS_GNUCXX )
+
+IF(MSVC)
+  ADD_DEFINITIONS(-DQT_DLL -Wall)
+ENDIF(MSVC)
+
+# Set some Win32 Specific Settings
+IF(WIN32)
+ SET(GUI_TYPE WIN32)
+ENDIF(WIN32)
 
 #   if(CMAKE_CONFIGURATION_TYPES)
 #     #set(CMAKE_CONFIGURATION_TYPES Debug Release DebugMX31 ReleaseMX31)
@@ -55,12 +62,12 @@ IF(NOT QT4_FOUND)
 ELSE(NOT QT4_FOUND)
 
 # don't know exactly what that is
-SET(CMAKE_PACKAGE_QTGUI TRUE)
+#SET(CMAKE_PACKAGE_QTGUI TRUE)
 # i don't want to install or package the qt gui on windows 
 # unless qt is static
-IF(WIN32 AND NOT QT_CONFIG MATCHES "static")
-  SET(CMAKE_PACKAGE_QTGUI FALSE)
-ENDIF(WIN32 AND NOT QT_CONFIG MATCHES "static")
+#IF(WIN32 AND NOT QT_CONFIG MATCHES "static")
+#  SET(CMAKE_PACKAGE_QTGUI FALSE)
+#ENDIF(WIN32 AND NOT QT_CONFIG MATCHES "static")
 
 
 # add some useful macros and variables
@@ -160,13 +167,18 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 
 
 # here we instruct CMake to build SIMPLETASKMANAGER executable from all of the source files
-ADD_EXECUTABLE( SimpleTaskManager WIN32 ${SIMPLETASKMANAGER_SRCS} ${SIMPLETASKMANAGER_HDRS} ${SIMPLETASKMANAGER_MOC_SRCS} ${SIMPLETASKMANAGER_RC_SRCS} ${SIMPLETASKMANAGER_UI_HDRS} )
+ADD_EXECUTABLE( SimpleTaskManager ${SIMPLETASKMANAGER_SRCS} ${SIMPLETASKMANAGER_HDRS} ${SIMPLETASKMANAGER_MOC_SRCS} ${SIMPLETASKMANAGER_RC_SRCS} ${SIMPLETASKMANAGER_UI_HDRS} )
 
 # last thing we have to do is to tell CMake what libraries our executable needs,
 # luckily FIND_PACKAGE prepared QT_LIBRARIES variable for us:
-TARGET_LINK_LIBRARIES( SimpleTaskManager ${QT_LIBRARIES} )
+TARGET_LINK_LIBRARIES( SimpleTaskManager ${QT_LIBRARIES} ${QT_QTMAIN_LIBRARY})
 
-#INSTALL_TARGETS( /bin SimpleTaskManager )
+
+#IF(WIN32)
+# LINK_LIBRARIES(${QT_QTMAIN_LIBRARY})
+#ENDIF(WIN32)
+
+INSTALL_TARGETS( /bin SimpleTaskManager )
 
 
 # add a target to generate API documentation with Doxygen
@@ -195,7 +207,7 @@ endif(DOXYGEN_FOUND)
 
   # IF(UNIX)
  #   install a desktop file so CMake appears in the application start menu
-    with an icon
+ #   with an icon
     # INSTALL(FILES CMake.desktop DESTINATION share/applications )
     # INSTALL(FILES CMakeSetup.png DESTINATION share/pixmaps )
     # INSTALL(FILES cmakecache.xml DESTINATION share/mime/packages )
