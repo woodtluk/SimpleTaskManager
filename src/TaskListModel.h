@@ -14,10 +14,10 @@ public:
     virtual ~TaskListModel() {};
 
     void addTask(TaskPtr task) {
-      //beginResetModel();
+      beginResetModel();
       m_taskToAdd = task;
       insertRow(m_lstTasks.count());
-      //endResetModel();
+      endResetModel();
     }
 
     void removeTask(int row)
@@ -27,7 +27,12 @@ public:
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+   // bool setData(const QModelIndex &index, const QVariant &value, int role);
     Qt::ItemFlags flags ( const QModelIndex & index ) const;
+
+    bool setData(const QModelIndex& index, const QVariant& value, int role=Qt::EditRole);
+
+    TaskPtr getTask(int index) const;
 
     bool insertRow ( int row, const QModelIndex & parent = QModelIndex() );
     bool removeRow ( int row, const QModelIndex & parent = QModelIndex() );
