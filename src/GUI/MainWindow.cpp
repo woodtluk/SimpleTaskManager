@@ -4,10 +4,10 @@
 #include <QSystemTrayIcon>
 #include <QModelIndex>
 
-#include "Task.h"
-#include "TaskDialog.h"
+#include "../Task/Task.h"
+#include "../TaskDialog/TaskDialog.h"
 #include "TaskListModel.h"
-#include "Timer.h"
+#include "../Timer/Timer.h"
 
 #include "Config.h"
 

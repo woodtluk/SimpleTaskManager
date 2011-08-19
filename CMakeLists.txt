@@ -5,11 +5,9 @@ cmake_minimum_required(VERSION 2.8)
 
 SET(QT_MIN_VERSION "4.2.0")
 
-
 # 								absolut						relative
 # project source dir: 		${CMAKE_SOURCE_DIR}			${CMAKE_CURRENT_SOURCE_DIR}
 # build dir:				${CMAKE_BINARY_DIR} 		${CMAKE_CURRENT_BINARY_DIR}
-
 
 SET(CMAKE_BUILD_TYPE Debug)
 
@@ -19,7 +17,7 @@ SET(SimpleTaskManager_VERSION_MINOR 1)
 
 # config.h file
 configure_file (
-  "${PROJECT_SOURCE_DIR}/Config.h.in"
+  "${PROJECT_SOURCE_DIR}/src/Config.h.in"
   "${PROJECT_BINARY_DIR}/Config.h"
 )
 
@@ -78,12 +76,12 @@ INCLUDE( ${QT_USE_FILE} )
 # by default only QtCore and QtGui modules are enabled
 # other modules must be enabled like this:
 
-SET(
+#SET(
   #QT_USE_QTXML                 TRUE
   # QT_USE_QTASSISTANT           TRUE
   # QT_USE_QAXCONTAINER         TRUE
   # QT_USE_QAXSERVER            TRUE
-  QT_USE_QTDESIGNER           TRUE
+  #QT_USE_QTDESIGNER           TRUE
   # QT_USE_QTMOTIF              TRUE
   #QT_USE_QTMAIN               TRUE
   # QT_USE_QTNETWORK          TRUE
@@ -91,9 +89,9 @@ SET(
   # QT_USE_QTOPENGL         TRUE
   # QT_USE_QTSQL          TRUE
   # QT_USE_QTXML          TRUE
-  QT_USE_QTSVG          TRUE
+  #QT_USE_QTSVG          TRUE
   #QT_USE_QTTEST         TRUE
-  QT_USE_QTUITOOLS          TRUE
+  #QT_USE_QTUITOOLS          TRUE
   #  QT_USE_QTDBUS         TRUE
   # QT_USE_QTSCRIPT         TRUE
   # QT_USE_QTASSISTANTCLIENT          TRUE
@@ -101,54 +99,63 @@ SET(
   # QT_USE_QTWEBKIT         TRUE
   # QT_USE_QTXMLPATTERNS          TRUE
   # QT_USE_PHONON         TRUE
-)
+#)
 
 # This sets the windows build that will need the special winmain@16 call. Qt provides
 #  this for us in the qtmain.lib file. Using this cmake code will ensure we have it
 #  linked into our build. Not needed on Unix/OS X/Linux which is why we have the
 #  IF(WIN32) conditional.
-IF (WIN32)
-#    SET (QT_USE_QTMAIN TRUE)
-ENDIF (WIN32)
+IF(WIN32) # and mingw/gcc
+  SET(QT_USE_QTMAIN TRUE)
+ENDIF(WIN32)
+
+#add_subdirectory(./src)
+
+
+
+
 
 # with SET() command you can change variables or define new ones
 # here we define SIMPLETASKMANAGER_SRCS variable that contains a list of all .cpp files
 # note that we don't need \ at the end of line
 SET( SIMPLETASKMANAGER_SRCS
   ./src/main.cpp
-  ./src/MainWindow.cpp
-  ./src/Task.cpp
-  ./src/TaskDialog.cpp
-  ./src/TaskListModel.cpp
-  ./src/Timer.cpp
+  ./src/GUI/MainWindow.cpp
+  ./src/Task/Task.cpp
+  ./src/TaskDialog/TaskDialog.cpp
+  ./src/GUI/TaskListModel.cpp
+  ./src/Timer/Timer.cpp
 )
+
 
 # another list, this time it includes all header files that should be treated with moc
 SET( SIMPLETASKMANAGER_MOC_HDRS
-  ./src/MainWindow.h
-  ./src/TaskDialog.h
-  ./src/TaskListModel.h
-  ./src/Timer.h
-)
-
-# headers that are not treated with moc
-SET( SIMPLETASKMANAGER_HDRS
-    ./src/Task.h
-)
-
-# some .ui files
-SET( SIMPLETASKMANAGER_UIS
-     ./ui/mainwindow.ui
-    ./ui/TaskDialog.ui
-)
-
-# and finally an resource file
-SET( SIMPLETASKMANAGER_RCS
-  ./rsc/resources.qrc
+  ./src/GUI/MainWindow.h
+  ./src/TaskDialog/TaskDialog.h
+  ./src/GUI/TaskListModel.h
+  ./src/Timer/Timer.h
 )
 
 # and finally this will run moc:
 QT4_WRAP_CPP( SIMPLETASKMANAGER_MOC_SRCS ${SIMPLETASKMANAGER_MOC_HDRS} )
+
+# headers that are not treated with moc
+SET( SIMPLETASKMANAGER_HDRS
+  ./src/Task/Task.h
+)
+
+
+# some .ui files
+SET( SIMPLETASKMANAGER_UIS
+     ./src/GUI/MainWindow.ui
+    ./src/TaskDialog/TaskDialog.ui
+)
+
+# and finally an resource file
+SET( SIMPLETASKMANAGER_RCS
+  ./src/rsc/resources.qrc
+)
+
 
 
 # this will run uic on .ui files:
@@ -167,30 +174,18 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 
 
 # here we instruct CMake to build SIMPLETASKMANAGER executable from all of the source files
-ADD_EXECUTABLE( SimpleTaskManager ${SIMPLETASKMANAGER_SRCS} ${SIMPLETASKMANAGER_HDRS} ${SIMPLETASKMANAGER_MOC_SRCS} ${SIMPLETASKMANAGER_RC_SRCS} ${SIMPLETASKMANAGER_UI_HDRS} )
+# WIN32 as second param creates a WinMain instead of a main function. Has no effect on non Win platforms
+ADD_EXECUTABLE( SimpleTaskManager WIN32 ${SIMPLETASKMANAGER_SRCS} ${SIMPLETASKMANAGER_HDRS} ${SIMPLETASKMANAGER_MOC_SRCS} ${SIMPLETASKMANAGER_RC_SRCS} ${SIMPLETASKMANAGER_UI_HDRS} )
+
 
 # last thing we have to do is to tell CMake what libraries our executable needs,
 # luckily FIND_PACKAGE prepared QT_LIBRARIES variable for us:
-TARGET_LINK_LIBRARIES( SimpleTaskManager ${QT_LIBRARIES} ${QT_QTMAIN_LIBRARY})
+TARGET_LINK_LIBRARIES( SimpleTaskManager ${QT_LIBRARIES})
 
-
-#IF(WIN32)
-# LINK_LIBRARIES(${QT_QTMAIN_LIBRARY})
-#ENDIF(WIN32)
 
 INSTALL_TARGETS( /bin SimpleTaskManager )
 
 
-# add a target to generate API documentation with Doxygen
-find_package(Doxygen)
-if(DOXYGEN_FOUND)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
-add_custom_target(doc ALL # if ALL is removed from this line documentation is only build with 'make doc'
-  ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-  COMMENT "Generating API documentation with Doxygen" VERBATIM
-)
-endif(DOXYGEN_FOUND)
 
 
 
@@ -229,3 +224,8 @@ endif(DOXYGEN_FOUND)
   # CONFIGURE_FILE("${QtDialog_SOURCE_DIR}/QtDialogCPack.cmake.in"
     # "${QtDialog_BINARY_DIR}/QtDialogCPack.cmake" @ONLY)    
 ENDIF(NOT QT4_FOUND)
+
+
+
+add_subdirectory(./doc EXCLUDE_FROM_ALL)
+

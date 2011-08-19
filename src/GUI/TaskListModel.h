@@ -4,7 +4,7 @@
 #include <QAbstractListModel>
 #include <QList>
 
-#include "Task.h"
+#include "../Task/Task.h"
 
 class TaskListModel : public QAbstractListModel
 {

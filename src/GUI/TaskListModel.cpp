@@ -2,8 +2,8 @@
 
 #include <QMessageBox>
 
-#include "Timer.h"
-#include "Task.h"
+#include "../Timer/Timer.h"
+#include "../Task/Task.h"
 
 TaskListModel::TaskListModel(QObject *parent) :
     QAbstractListModel(parent)

@@ -3,8 +3,8 @@
 
 #include <QDataWidgetMapper>
 
-#include "Task.h"
-#include "TaskListModel.h"
+#include "../Task/Task.h"
+#include "../GUI/TaskListModel.h"
 
 #include <QDebug>
 #include <QMessageBox>
