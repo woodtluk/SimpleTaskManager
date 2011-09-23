@@ -12,12 +12,12 @@
 TaskDialog::TaskDialog(TaskListModel *pModel, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::TaskDialog),
+    m_pTaskListModel(pModel),
     m_pDataWidgetMapper(new QDataWidgetMapper(this))
 {
     ui->setupUi(this);
 
     m_pDataWidgetMapper->setModel(pModel);
-
 
     //ui->m_pLineEditTaskName->setText(m_pTask->getName());
     /** @todo ui->m_pTextEditTaskDescription->document()->set;
@@ -72,6 +72,7 @@ void TaskDialog::disableBrowseButtons(bool disable)
 
 void TaskDialog::on_m_pOkAbbortButtonBox_rejected()
 {
+  m_pDataWidgetMapper->revert();
   done(QDialog::Rejected);
 }
 
@@ -83,7 +84,40 @@ void TaskDialog::on_m_pOkAbbortButtonBox_accepted()
     return;
   }
 
-  /// @todo use data mapper
-
+  m_pDataWidgetMapper->submit();
   done(QDialog::Accepted);
+}
+
+
+void TaskDialog::on_m_pButtonFirstTask_clicked()
+{
+    m_pDataWidgetMapper->toFirst();
+}
+
+void TaskDialog::on_m_pButtonPreviousTask_clicked()
+{
+    m_pDataWidgetMapper->toPrevious();
+}
+
+void TaskDialog::on_m_pButtonNextTask_clicked()
+{
+    m_pDataWidgetMapper->toNext();
+}
+
+void TaskDialog::on_m_pButtonLastTask_clicked()
+{
+    m_pDataWidgetMapper->toLast();
+}
+
+int TaskDialog::addNewTask()
+{
+    TaskPtr newTask = TaskPtr(new Task());
+    m_pTaskListModel->addTask(newTask);
+
+    m_pDataWidgetMapper->toLast();
+    disableBrowseButtons(true);
+
+    return exec();
+
+
 }

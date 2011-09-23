@@ -52,19 +52,9 @@ void MainWindow::on_m_pActionQuit_triggered()
 void MainWindow::on_m_pActionAddTask_triggered()
 {
 
-    TaskPtr newTask = TaskPtr(new Task());
-    m_pTaskListModel->addTask(newTask);
 
-    m_pTaskDialog->toLast();
+    /*QDialog::DialogCode*/ int code = m_pTaskDialog->addNewTask();
 
-    /*QDialog::DialogCode*/ int code = m_pTaskDialog->exec();
-    if (QDialog::Accepted == code) {
-        m_pTaskDialog->submit();
-    }
-    else
-    {
-      m_pTaskDialog->revert();
-    }
 }
 
 
@@ -81,15 +71,10 @@ void MainWindow::on_m_pActionRemoveTask_triggered()
 void MainWindow::editTask(const QModelIndex& index) {
   /// @todo addapt this to the task dialog with data mapper
   m_pTaskDialog->setCurrentModelIndex(index);
+  m_pTaskDialog->disableBrowseButtons(false);
+  
   /*QDialog::DialogCode*/ int code = m_pTaskDialog->exec();
-  if (QDialog::Accepted == code) {
-    m_pTaskDialog->submit();
-    ui->m_pListView->update(index);
-  }
-  else
-  {
-    m_pTaskDialog->revert();
-  }
+
 }
 
 void MainWindow::showMessage() {

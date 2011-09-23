@@ -20,25 +20,31 @@ public:
     explicit TaskDialog(TaskListModel *model, QWidget *parent = 0);
     virtual ~TaskDialog();
 
+    int addNewTask();
     void disableBrowseButtons(bool disable);
   public slots:
-    void	revert() {m_pDataWidgetMapper->revert();}
-    virtual void	setCurrentIndex(int index){m_pDataWidgetMapper->setCurrentIndex(index);}
+
+    //virtual void	setCurrentIndex(int index){m_pDataWidgetMapper->setCurrentIndex(index);}
     void	setCurrentModelIndex(const QModelIndex &index){m_pDataWidgetMapper->setCurrentModelIndex(index);}
-    bool	submit(){return m_pDataWidgetMapper->submit();}
-    void	toFirst(){m_pDataWidgetMapper->toFirst();}
-    void	toLast(){m_pDataWidgetMapper->toLast();}
-    void	toNext(){m_pDataWidgetMapper->toNext();}
-    void	toPrevious(){m_pDataWidgetMapper->toPrevious();}
+
+
 
   private slots:
       void on_m_pOkAbbortButtonBox_accepted();
       void on_m_pOkAbbortButtonBox_rejected();
 
+      void on_m_pButtonFirstTask_clicked();
+
+      void on_m_pButtonPreviousTask_clicked();
+
+      void on_m_pButtonNextTask_clicked();
+
+      void on_m_pButtonLastTask_clicked();
+
 private:
     Ui::TaskDialog *ui;
-
-    QDataWidgetMapper *m_pDataWidgetMapper;
+    TaskListModel      * const m_pTaskListModel;
+    QDataWidgetMapper * const m_pDataWidgetMapper;
 };
 
 #endif // TASKDIALOG_H

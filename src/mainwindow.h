@@ -22,6 +22,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+
 private slots:
     void on_m_pActionRemoveTask_triggered();
     void on_m_pActionAddTask_triggered();
