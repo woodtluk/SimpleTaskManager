@@ -1,4 +1,4 @@
-#ifndef TASK_H
+﻿#ifndef TASK_H
 #define TASK_H
 
 #include <QTime>
@@ -16,61 +16,31 @@ public:
   explicit Task() {};
   explicit Task(QString strName);
 
+  QString getName();
+  void setName(QString strName);
 
-    QString getDescription() {
-        return m_strTaskDescription;
-    }
+  QString getDescription();
+  void setDescription(QString strDescription);
 
-    void setDescription(QString strDescription) {
-        m_strTaskDescription = strDescription;
-    }
+  QTime getBeginTime();
+  void setBeginTime(QTime time);
 
-    QString getName() {
-        return m_strTaskName;
-    }
+  QTime getDurationTime();
+  void setDurationTime(QTime timeDuration);
 
-    void setName(QString strName) {
-        m_strTaskName = strName;
-    }
+  QTime getAlarmBeforeTaskTime();
+  void setAlarmBeforeTaskTime(QTime time);
 
-    QTime getBeginTime() {
-      return m_timeBegin;
-    }
-
-    void setBeginTime(QTime time) {
-      m_timeBegin = time;
-    }
-
-    QTime getDurationTime() {
-      return m_timeDuration;
-    }
-
-    void setDurationTime(QTime timeDuration) {
-      m_timeDuration = timeDuration;
-    }
-
-    QTime getAlarmBeforeTaskTime() {
-      return m_timeAlarmBeforeTask;
-    }
-
-    void setAlarmBeforeTaskTime(QTime time) {
-      m_timeAlarmBeforeTask = time;
-    }
-
-
-signals:
-
-public slots:
 
 private:
-    QTime m_timeBegin;
-    QTime m_timeDuration;
-    QTime m_timeAlarmBeforeTask;
+  QString m_strTaskName;
+  QString m_strTaskDescription;
 
-    QString m_strTaskName;
-    QString m_strTaskDescription;
+  QTime m_timeBegin;
+  QTime m_timeDuration;
+  QTime m_timeAlarmBeforeTask;
 };
 
- Q_DECLARE_METATYPE(TaskPtr);
+Q_DECLARE_METATYPE(TaskPtr);
 
 #endif // TASK_H

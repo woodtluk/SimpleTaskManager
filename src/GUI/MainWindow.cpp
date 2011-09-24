@@ -1,8 +1,9 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include <QSystemTrayIcon>
 #include <QModelIndex>
+#include <QDebug>
 
 #include "../Task/Task.h"
 #include "../TaskDialog/TaskDialog.h"
@@ -11,49 +12,51 @@
 
 #include "Config.h"
 
-//#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    m_pTrayIcon(new QSystemTrayIcon(this)),
-    m_pTaskListModel(new TaskListModel(this)),
-    m_pTaskDialog(new TaskDialog(m_pTaskListModel, this))
+  QMainWindow(parent),
+  ui(new Ui::MainWindow),
+  m_pTrayIcon(new QSystemTrayIcon(this)),
+  m_pTaskListModel(new TaskListModel(this)),
+  m_pTaskDialog(new TaskDialog(m_pTaskListModel, this))
 {
   ui->setupUi(this);
 
   setWindowIcon(QIcon(":/img/applications-office.png"));
 
- // void checkTasksForAlarm();
+  setupTaskList();
 
-  ui->m_pListView->setEditTriggers(QAbstractItemView::SelectedClicked | QAbstractItemView::EditKeyPressed);
-
-  connect(ui->m_pListView, SIGNAL(doubleClicked(const QModelIndex&)),SLOT(editTask(const QModelIndex&)));
-
-  ui->m_pListView->setModel(m_pTaskListModel);
-
+  // Timer
   connect(Timer::getInstance().data(), SIGNAL(timeout()), m_pTaskListModel, SLOT(checkTasksForAlarm()));
 
- /* std::cout << "Version: "
-            << APPLICATION_VERSION_MAJOR << "." <<
-            APPLICATION_VERSION_MINOR << std::endl;*/
+  qDebug() << "Version: "
+           << APPLICATION_VERSION_MAJOR << "." <<
+              APPLICATION_VERSION_MINOR;
+
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+  delete ui;
+}
+
+void MainWindow::setupTaskList() {
+  ui->m_pListView->setEditTriggers(QAbstractItemView::SelectedClicked | QAbstractItemView::EditKeyPressed);
+  connect(ui->m_pListView, SIGNAL(doubleClicked(const QModelIndex&)),SLOT(editTask(const QModelIndex&)));
+  ui->m_pListView->setModel(m_pTaskListModel);
 }
 
 void MainWindow::on_m_pActionQuit_triggered()
 {
-    QCoreApplication::quit();
+  QCoreApplication::quit();
 }
 
 void MainWindow::on_m_pActionAddTask_triggered()
 {
-
-
-    /*QDialog::DialogCode*/ int code = m_pTaskDialog->addNewTask();
+#warning Fix this
+  qWarning("Isnt Working yet");
+  /// @todo isn't working yet
+  /*QDialog::DialogCode*/ int code = m_pTaskDialog->createNewTask();
 
 }
 
@@ -65,11 +68,13 @@ void MainWindow::on_m_pActionRemoveTask_triggered()
   {
     m_pTaskListModel->removeTask(index.row());
   }
-
 }
 
 void MainWindow::editTask(const QModelIndex& index) {
   /// @todo addapt this to the task dialog with data mapper
+#warning Fix this
+  qWarning("Isnt Working yet");
+  /// @todo isn't working yet
   m_pTaskDialog->setCurrentModelIndex(index);
   m_pTaskDialog->disableBrowseButtons(false);
   

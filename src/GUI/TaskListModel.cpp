@@ -1,4 +1,4 @@
-#include "TaskListModel.h"
+﻿#include "TaskListModel.h"
 
 #include <QMessageBox>
 
@@ -8,11 +8,7 @@
 TaskListModel::TaskListModel(QObject *parent) :
     QAbstractListModel(parent)
 {
-
- /*   for (int i=0; i<5; i++)
-        m_lstTasks.append(TaskPtr(new Task(QString::number(i))));
-*/
-  }
+}
 
 int TaskListModel::rowCount(const QModelIndex & parent /* = QModelIndex() */) const {
     return m_lstTasks.count();

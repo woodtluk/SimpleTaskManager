@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -11,32 +11,34 @@ class TaskDialog;
 class TaskListModel;
 
 namespace Ui {
-    class MainWindow;
+class MainWindow;
 }
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
-
-
-private slots:
-    void on_m_pActionRemoveTask_triggered();
-    void on_m_pActionAddTask_triggered();
-    void on_m_pActionQuit_triggered();
-
-    void editTask(const QModelIndex& index);
-    void showMessage();
+  explicit MainWindow(QWidget *parent = 0);
+  ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
-    QSystemTrayIcon *m_pTrayIcon;
+  void setupTaskList();
 
-    TaskListModel *m_pTaskListModel;
-    TaskDialog* m_pTaskDialog;
-  };
+private slots:
+  void on_m_pActionRemoveTask_triggered();
+  void on_m_pActionAddTask_triggered();
+  void on_m_pActionQuit_triggered();
+
+  void editTask(const QModelIndex& index);
+  void showMessage();
+
+private:
+  Ui::MainWindow *ui;
+  QSystemTrayIcon *m_pTrayIcon;
+
+  TaskListModel *m_pTaskListModel;
+  TaskDialog* m_pTaskDialog;
+};
 
 #endif // MAINWINDOW_H

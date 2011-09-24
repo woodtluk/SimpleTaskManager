@@ -1,4 +1,4 @@
-#include "TaskDialog.h"
+﻿#include "TaskDialog.h"
 #include "ui_TaskDialog.h"
 
 #include <QDataWidgetMapper>
@@ -10,17 +10,17 @@
 #include <QMessageBox>
 
 TaskDialog::TaskDialog(TaskListModel *pModel, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::TaskDialog),
-    m_pTaskListModel(pModel),
-    m_pDataWidgetMapper(new QDataWidgetMapper(this))
+  QDialog(parent),
+  ui(new Ui::TaskDialog),
+  m_pTaskListModel(pModel),
+  m_pDataWidgetMapper(new QDataWidgetMapper(this))
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 
-    m_pDataWidgetMapper->setModel(pModel);
+  m_pDataWidgetMapper->setModel(pModel);
 
-    //ui->m_pLineEditTaskName->setText(m_pTask->getName());
-    /** @todo ui->m_pTextEditTaskDescription->document()->set;
+  //ui->m_pLineEditTaskName->setText(m_pTask->getName());
+  /** @todo ui->m_pTextEditTaskDescription->document()->set;
 
     m_pTask->setBeginTime(ui->m_pTimeEditBegin->time());
 
@@ -61,7 +61,7 @@ TaskDialog::TaskDialog(TaskListModel *pModel, QWidget *parent) :
 
 TaskDialog::~TaskDialog()
 {
-    delete ui;
+  delete ui;
 }
 
 
@@ -91,33 +91,48 @@ void TaskDialog::on_m_pOkAbbortButtonBox_accepted()
 
 void TaskDialog::on_m_pButtonFirstTask_clicked()
 {
-    m_pDataWidgetMapper->toFirst();
+  m_pDataWidgetMapper->toFirst();
 }
 
 void TaskDialog::on_m_pButtonPreviousTask_clicked()
 {
-    m_pDataWidgetMapper->toPrevious();
+  m_pDataWidgetMapper->toPrevious();
 }
 
 void TaskDialog::on_m_pButtonNextTask_clicked()
 {
-    m_pDataWidgetMapper->toNext();
+  m_pDataWidgetMapper->toNext();
 }
 
 void TaskDialog::on_m_pButtonLastTask_clicked()
 {
-    m_pDataWidgetMapper->toLast();
+  m_pDataWidgetMapper->toLast();
 }
 
-int TaskDialog::addNewTask()
+int TaskDialog::createNewTask()
 {
-    TaskPtr newTask = TaskPtr(new Task());
-    m_pTaskListModel->addTask(newTask);
+  TaskPtr newTask = TaskPtr(new Task());
+  m_pTaskListModel->addTask(newTask);
 
-    m_pDataWidgetMapper->toLast();
-    disableBrowseButtons(true);
+  m_pDataWidgetMapper->toLast();
+  disableBrowseButtons(true);
 
-    return exec();
+  switch (exec()) {
+  case QDialog::Accepted:
+    // acept new task data
+    m_pDataWidgetMapper->submit();
+    break;
+  case QDialog::Rejected:
+    // delete new added task
+    m_pTaskListModel->removeLastTask();
+    break;
+  }
 
 
+
+
+}
+
+void	TaskDialog::setCurrentModelIndex(const QModelIndex &index) {
+  m_pDataWidgetMapper->setCurrentModelIndex(index);
 }

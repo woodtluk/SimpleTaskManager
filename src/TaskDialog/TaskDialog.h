@@ -1,4 +1,4 @@
-#ifndef TASKDIALOG_H
+﻿#ifndef TASKDIALOG_H
 #define TASKDIALOG_H
 
 #include <QDialog>
@@ -6,45 +6,39 @@
 
 class TaskListModel;
 
-
-
 namespace Ui {
-    class TaskDialog;
+class TaskDialog;
 }
 
 class TaskDialog : public QDialog
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit TaskDialog(TaskListModel *model, QWidget *parent = 0);
-    virtual ~TaskDialog();
+  explicit TaskDialog(TaskListModel *model, QWidget *parent = 0);
+  virtual ~TaskDialog();
 
-    int addNewTask();
-    void disableBrowseButtons(bool disable);
-  public slots:
+  int createNewTask();
+  void disableBrowseButtons(bool disable);
 
-    //virtual void	setCurrentIndex(int index){m_pDataWidgetMapper->setCurrentIndex(index);}
-    void	setCurrentModelIndex(const QModelIndex &index){m_pDataWidgetMapper->setCurrentModelIndex(index);}
+public slots:
+  //virtual void	setCurrentIndex(int index){m_pDataWidgetMapper->setCurrentIndex(index);}
+  void setCurrentModelIndex(const QModelIndex &index);
 
+private slots:
+  void on_m_pOkAbbortButtonBox_accepted();
+  void on_m_pOkAbbortButtonBox_rejected();
 
-
-  private slots:
-      void on_m_pOkAbbortButtonBox_accepted();
-      void on_m_pOkAbbortButtonBox_rejected();
-
-      void on_m_pButtonFirstTask_clicked();
-
-      void on_m_pButtonPreviousTask_clicked();
-
-      void on_m_pButtonNextTask_clicked();
-
-      void on_m_pButtonLastTask_clicked();
+  void on_m_pButtonFirstTask_clicked();
+  void on_m_pButtonPreviousTask_clicked();
+  void on_m_pButtonNextTask_clicked();
+  void on_m_pButtonLastTask_clicked();
 
 private:
-    Ui::TaskDialog *ui;
-    TaskListModel      * const m_pTaskListModel;
-    QDataWidgetMapper * const m_pDataWidgetMapper;
+  TaskListModel   * const m_pTaskListModel;
+  QDataWidgetMapper * const m_pDataWidgetMapper;
+
+  Ui::TaskDialog *ui;
 };
 
 #endif // TASKDIALOG_H
