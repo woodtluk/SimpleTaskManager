@@ -64,8 +64,8 @@ public slots:
 
 private:
     QTime m_timeBegin;
-    QTime m_timeAlarmBeforeTask;
     QTime m_timeDuration;
+    QTime m_timeAlarmBeforeTask;
 
     QString m_strTaskName;
     QString m_strTaskDescription;

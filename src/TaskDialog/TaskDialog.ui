@@ -141,14 +141,14 @@
    </item>
    <item>
     <widget class="QTextEdit" name="m_pTextEditTaskDescription">
-     <property name="tabChangesFocus">
-      <bool>true</bool>
-     </property>
      <property name="maximumSize">
       <size>
        <width>16777215</width>
        <height>16777215</height>
       </size>
+     </property>
+     <property name="tabChangesFocus">
+      <bool>true</bool>
      </property>
      <property name="acceptRichText">
       <bool>false</bool>
@@ -261,9 +261,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../rsc/resources.qrc"/>
- </resources>
  <tabstops>
   <tabstop>m_pLineEditTaskName</tabstop>
   <tabstop>m_pTimeEditBegin</tabstop>
@@ -272,6 +269,8 @@
   <tabstop>m_pTextEditTaskDescription</tabstop>
   <tabstop>m_pOkAbbortButtonBox</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../rsc/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
