@@ -6,20 +6,20 @@ Task::Task(QString strName) :
 {
 }
 
-QString Task::getDescription() {
-  return m_strTaskDescription;
-}
-
-void Task::setDescription(QString strDescription) {
-  m_strTaskDescription = strDescription;
-}
-
 QString Task::getName() {
   return m_strTaskName;
 }
 
 void Task::setName(QString strName) {
   m_strTaskName = strName;
+}
+
+QString Task::getDescription() {
+  return m_strTaskDescription;
+}
+
+void Task::setDescription(QString strDescription) {
+  m_strTaskDescription = strDescription;
 }
 
 QTime Task::getBeginTime() {

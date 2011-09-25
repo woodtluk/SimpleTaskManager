@@ -1,4 +1,4 @@
-﻿#include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include <QSystemTrayIcon>
@@ -22,9 +22,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
-  setWindowIcon(QIcon(":/img/applications-office.png"));
+  ui->m_pListView->setModel(m_pTaskListModel);
+  connect(ui->m_pListView, SIGNAL(doubleClicked(const QModelIndex&)),SLOT(editTask(const QModelIndex&)));
 
-  setupTaskList();
+
+  setWindowIcon(QIcon(":/img/applications-office.png"));
 
   // Timer
   connect(Timer::getInstance().data(), SIGNAL(timeout()), m_pTaskListModel, SLOT(checkTasksForAlarm()));
@@ -40,11 +42,6 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-void MainWindow::setupTaskList() {
-  ui->m_pListView->setEditTriggers(QAbstractItemView::SelectedClicked | QAbstractItemView::EditKeyPressed);
-  connect(ui->m_pListView, SIGNAL(doubleClicked(const QModelIndex&)),SLOT(editTask(const QModelIndex&)));
-  ui->m_pListView->setModel(m_pTaskListModel);
-}
 
 void MainWindow::on_m_pActionQuit_triggered()
 {

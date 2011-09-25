@@ -1,15 +1,20 @@
-
 PROJECT(SimpleTaskManager)
 
 cmake_minimum_required(VERSION 2.8)
 
 SET(QT_MIN_VERSION "4.2.0")
 
-# 								absolut						relative
-# project source dir: 		${CMAKE_SOURCE_DIR}			${CMAKE_CURRENT_SOURCE_DIR}
-# build dir:				${CMAKE_BINARY_DIR} 		${CMAKE_CURRENT_BINARY_DIR}
+#                           absolut                   relative
+# project source dir:     ${CMAKE_SOURCE_DIR}       ${CMAKE_CURRENT_SOURCE_DIR}
+# build dir:              ${CMAKE_BINARY_DIR}       ${CMAKE_CURRENT_BINARY_DIR}
 
 SET(CMAKE_BUILD_TYPE Debug)
+
+MESSAGE("PROJECT_NAME=${PROJECT_NAME}")
+MESSAGE("PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR}")
+MESSAGE("PROJECT_BINARY_DIR=${PROJECT_BINARY_DIR}")
+MESSAGE("CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR}")
+MESSAGE("CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR}")
 
 # Version
 SET(SimpleTaskManager_VERSION_MAJOR 0)
@@ -22,8 +27,10 @@ configure_file (
 )
 
 # add the binary tree to the search path for include files
-# so that we will find TutorialConfig.h
-include_directories("${PROJECT_BINARY_DIR}")
+# so that we will find Config.h
+# add the source dir to include directory so that the generated source
+# files from uic find custom widgets that are promoted to in the designer
+include_directories("${PROJECT_BINARY_DIR}" "${PROJECT_SOURCE_DIR}")
 
 # enable warnings
 #ADD_DEFINITIONS( -c -g -Wall -frtti -fexceptions -mthreads -enable-stdcall-fixup -Wl,-enable-auto-import -Wl,-enable-runtime-pseudo-reloc)
@@ -124,6 +131,7 @@ SET( SIMPLETASKMANAGER_SRCS
   ./src/Task/Task.cpp
   ./src/TaskDialog/TaskDialog.cpp
   ./src/GUI/TaskListModel.cpp
+  ./src/GUI/TaskListView.cpp
   ./src/Timer/Timer.cpp
 )
 
@@ -131,6 +139,7 @@ SET( SIMPLETASKMANAGER_SRCS
 # another list, this time it includes all header files that should be treated with moc
 SET( SIMPLETASKMANAGER_MOC_HDRS
   ./src/GUI/MainWindow.h
+  ./src/GUI/TaskListView.h
   ./src/TaskDialog/TaskDialog.h
   ./src/GUI/TaskListModel.h
   ./src/Timer/Timer.h

@@ -1,4 +1,4 @@
-﻿#ifndef MAINWINDOW_H
+#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -23,7 +23,6 @@ public:
   ~MainWindow();
 
 private:
-  void setupTaskList();
 
 private slots:
   void on_m_pActionRemoveTask_triggered();

@@ -1,4 +1,4 @@
-﻿#ifndef TASKLISTMODEL_H
+#ifndef TASKLISTMODEL_H
 #define TASKLISTMODEL_H
 
 #include <QAbstractListModel>
@@ -8,36 +8,38 @@
 
 class TaskListModel : public QAbstractListModel
 {
-    Q_OBJECT
+  Q_OBJECT
 public:
-    explicit TaskListModel(QObject *parent = 0);
-    virtual ~TaskListModel() {};
+  explicit TaskListModel(QObject *parent = 0);
+  virtual ~TaskListModel() {};
 
-    void addTask(TaskPtr task) {
-      beginResetModel();
-      m_taskToAdd = task;
-      insertRow(m_lstTasks.count());
-      endResetModel();
-    }
+  void addTask(TaskPtr task) {
+    beginResetModel();
+    m_taskToAdd = task;
+    insertRow(m_lstTasks.count());
+    endResetModel();
+  }
 
-    void removeTask(int row)
-    {
-     removeRow(row);
-    }
-    void removeLastTask() {
-      removeRow(m_lstTasks.count() - 1);
-    }
 
-    int rowCount(const QModelIndex & parent = QModelIndex()) const;
-    QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
-    Qt::ItemFlags flags ( const QModelIndex & index ) const;
+  void removeTask(int row)
+  {
+    removeRow(row);
+  }
 
-    bool setData(const QModelIndex& index, const QVariant& value, int role=Qt::EditRole);
+  void removeLastTask() {
+    removeRow(m_lstTasks.count() - 1);
+  }
 
-    TaskPtr getTask(int index) const;
+  int rowCount(const QModelIndex & parent = QModelIndex()) const;
+  QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+  Qt::ItemFlags flags ( const QModelIndex & index ) const;
 
-    bool insertRow ( int row, const QModelIndex & parent = QModelIndex() );
-    bool removeRow ( int row, const QModelIndex & parent = QModelIndex() );
+  bool setData(const QModelIndex& index, const QVariant& value, int role=Qt::EditRole);
+
+  TaskPtr getTask(int index) const;
+
+  bool insertRow ( int row, const QModelIndex & parent = QModelIndex() );
+  bool removeRow ( int row, const QModelIndex & parent = QModelIndex() );
 
 
 signals:
@@ -49,8 +51,8 @@ private:
 private slots:
 
 private:
-    QList<TaskPtr> m_lstTasks;
-    TaskPtr m_taskToAdd;
+  QList<TaskPtr> m_lstTasks;
+  TaskPtr m_taskToAdd;
 };
 
 #endif // TASKLISTMODEL_H
