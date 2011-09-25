@@ -41,12 +41,10 @@ QVariant TaskListModel::data(const QModelIndex & index, int role /*= Qt::Display
   return QVariant();
 }
 
-
 bool TaskListModel::setData(const QModelIndex& index, const QVariant& value, int role /*=Qt::EditRole*/) {
   if (!index.isValid())
     return false;
 
-  /// @todo do this properly and take data widget mapper in account
   if (Qt::EditRole == role) {
     m_lstTasks.at(index.row())->setName(value.toString());
   }
@@ -61,7 +59,7 @@ TaskPtr TaskListModel::getTask(int index) const {
 Qt::ItemFlags TaskListModel::flags(const QModelIndex & index) const {
   Q_UNUSED(index);
 
-  return Qt::ItemIsSelectable	| Qt::ItemIsEditable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled;
+  return Qt::ItemIsSelectable	| Qt::ItemIsEditable | Qt::ItemIsEnabled;
 }
 
 void TaskListModel::checkTasksForAlarm() {

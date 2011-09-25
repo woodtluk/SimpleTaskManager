@@ -48,15 +48,12 @@ void MainWindow::on_m_pActionQuit_triggered()
   QCoreApplication::quit();
 }
 
+/// @todo handle abborting editing new task
 void MainWindow::on_m_pActionAddTask_triggered()
 {
-#warning Fix this
-  qWarning("Isnt Working yet");
-  /// @todo isn't working yet
-  /*QDialog::DialogCode*/ int code = m_pTaskDialog->createNewTask();
+  /*QDialog::DialogCode int code = */ m_pTaskDialog->createNewTask();
 
 }
-
 
 void MainWindow::on_m_pActionRemoveTask_triggered()
 {
@@ -68,10 +65,6 @@ void MainWindow::on_m_pActionRemoveTask_triggered()
 }
 
 void MainWindow::editTask(const QModelIndex& index) {
-  /// @todo addapt this to the task dialog with data mapper
-#warning Fix this
-  qWarning("Isnt Working yet");
-  /// @todo isn't working yet
   m_pTaskDialog->setCurrentModelIndex(index);
   m_pTaskDialog->disableBrowseButtons(false);
   
@@ -84,4 +77,3 @@ void MainWindow::showMessage() {
   m_pTrayIcon->show();
   m_pTrayIcon->showMessage("Time:", QTime::currentTime().toString(), QSystemTrayIcon::Information);
 }
-

@@ -22,13 +22,7 @@ TaskDialog::TaskDialog(TaskListModel *pModel, QWidget *parent) :
   connect(m_pDataWidgetMapper, SIGNAL(currentIndexChanged(int)),
           this, SLOT(updateButtons(int)));
 
-
-  //ui->m_pLineEditTaskName->setText(m_pTask->getName());
-  /** @todo ui->m_pTextEditTaskDescription->document()->set;
-
-    m_pTask->setBeginTime(ui->m_pTimeEditBegin->time());
-
-    QString timeText = ui->m_pComboBoxAlarmBefore->currentText();
+    /** @todo Converting the combo box to a time and vice versa.
     QTime timeBeforeAlarm;
     bool bOk = false;
     if (timeText.contains(tr("Minute"))) {
@@ -53,14 +47,7 @@ TaskDialog::TaskDialog(TaskListModel *pModel, QWidget *parent) :
 
     Q_ASSERT(bOk);
 
-
-    m_pTask->setAlarmBeforeTaskTime(timeBeforeAlarm);
-
-    m_pTask->setDurationTime(ui->m_pTimeEditDuration->time());
-
-
-
-    */
+*/
 }
 
 TaskDialog::~TaskDialog()
@@ -145,8 +132,6 @@ int TaskDialog::createNewTask()
   }
 }
 
-
-
 void TaskDialog::updateButtons(int row)
 {
   ui->m_pButtonFirstTask->setEnabled(row > 0);
@@ -155,9 +140,6 @@ void TaskDialog::updateButtons(int row)
   ui->m_pButtonNextTask->setEnabled(row < m_pTaskListModel->rowCount() - 1);
   ui->m_pButtonLastTask->setEnabled(row < m_pTaskListModel->rowCount() - 1);
 }
-
-
-
 
 void	TaskDialog::setCurrentModelIndex(const QModelIndex &index) {
   m_pDataWidgetMapper->setCurrentModelIndex(index);

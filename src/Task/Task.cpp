@@ -1,4 +1,4 @@
-﻿#include "Task.h"
+#include "Task.h"
 
 
 Task::Task(QString strName) :
@@ -6,7 +6,7 @@ Task::Task(QString strName) :
 {
 }
 
-QString Task::getName() {
+QString Task::getName() const {
   return m_strTaskName;
 }
 
@@ -14,7 +14,7 @@ void Task::setName(QString strName) {
   m_strTaskName = strName;
 }
 
-QString Task::getDescription() {
+QString Task::getDescription() const {
   return m_strTaskDescription;
 }
 
@@ -22,7 +22,7 @@ void Task::setDescription(QString strDescription) {
   m_strTaskDescription = strDescription;
 }
 
-QTime Task::getBeginTime() {
+QTime Task::getBeginTime() const {
   return m_timeBegin;
 }
 
@@ -30,7 +30,7 @@ void Task::setBeginTime(QTime time) {
   m_timeBegin = time;
 }
 
-QTime Task::getDurationTime() {
+QTime Task::getDurationTime() const {
   return m_timeDuration;
 }
 
@@ -38,7 +38,7 @@ void Task::setDurationTime(QTime timeDuration) {
   m_timeDuration = timeDuration;
 }
 
-QTime Task::getAlarmBeforeTaskTime() {
+QTime Task::getAlarmBeforeTaskTime() const {
   return m_timeAlarmBeforeTask;
 }
 

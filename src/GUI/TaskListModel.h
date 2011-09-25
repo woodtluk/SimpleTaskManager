@@ -46,6 +46,7 @@ signals:
 
 public slots:
   void checkTasksForAlarm();
+
 private:
 
 private slots:

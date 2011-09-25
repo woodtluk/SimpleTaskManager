@@ -1,0 +1,1 @@
+python "C:\Program Files\flawfinder-1.27\flawfinder" -m 5 %~dp0\..\src

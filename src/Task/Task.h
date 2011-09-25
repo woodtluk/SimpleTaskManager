@@ -1,4 +1,4 @@
-﻿#ifndef TASK_H
+#ifndef TASK_H
 #define TASK_H
 
 #include <QTime>
@@ -16,19 +16,19 @@ public:
   explicit Task() {};
   explicit Task(QString strName);
 
-  QString getName();
+  QString getName() const;
   void setName(QString strName);
 
-  QString getDescription();
+  QString getDescription() const;
   void setDescription(QString strDescription);
 
-  QTime getBeginTime();
+  QTime getBeginTime() const;
   void setBeginTime(QTime time);
 
-  QTime getDurationTime();
+  QTime getDurationTime() const;
   void setDurationTime(QTime timeDuration);
 
-  QTime getAlarmBeforeTaskTime();
+  QTime getAlarmBeforeTaskTime() const;
   void setAlarmBeforeTaskTime(QTime time);
 
 

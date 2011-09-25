@@ -22,7 +22,6 @@ public:
   void disableBrowseButtons(bool disable);
 
 public slots:
-  //virtual void	setCurrentIndex(int index){m_pDataWidgetMapper->setCurrentIndex(index);}
   void setCurrentModelIndex(const QModelIndex &index);
 
 private slots:
@@ -40,10 +39,11 @@ private:
   void setupMapping();
 
 private:
+  Ui::TaskDialog *ui;
+
   TaskListModel   * const m_pTaskListModel;
   QDataWidgetMapper * const m_pDataWidgetMapper;
 
-  Ui::TaskDialog *ui;
 };
 
 #endif // TASKDIALOG_H
