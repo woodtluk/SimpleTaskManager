@@ -1,4 +1,4 @@
-﻿#include "TaskDialog.h"
+#include "TaskDialog.h"
 #include "ui_TaskDialog.h"
 
 #include <QDataWidgetMapper>
@@ -18,6 +18,10 @@ TaskDialog::TaskDialog(TaskListModel *pModel, QWidget *parent) :
   ui->setupUi(this);
 
   m_pDataWidgetMapper->setModel(pModel);
+  setupMapping();
+  connect(m_pDataWidgetMapper, SIGNAL(currentIndexChanged(int)),
+          this, SLOT(updateButtons(int)));
+
 
   //ui->m_pLineEditTaskName->setText(m_pTask->getName());
   /** @todo ui->m_pTextEditTaskDescription->document()->set;
@@ -64,6 +68,18 @@ TaskDialog::~TaskDialog()
   delete ui;
 }
 
+void TaskDialog::setupMapping() {
+  m_pDataWidgetMapper->addMapping(ui->m_pLineEditTaskName, 0);
+
+  m_pDataWidgetMapper->addMapping(ui->m_pTextEditTaskDescription, 1);
+
+  m_pDataWidgetMapper->addMapping(ui->m_pTimeEditBegin, 2);
+
+  m_pDataWidgetMapper->addMapping(ui->m_pTimeEditDuration, 3);
+
+  m_pDataWidgetMapper->addMapping(ui->m_pComboBoxAlarmBefore, 4);
+
+}
 
 void TaskDialog::disableBrowseButtons(bool disable)
 {
@@ -127,11 +143,21 @@ int TaskDialog::createNewTask()
     m_pTaskListModel->removeLastTask();
     break;
   }
-
-
-
-
 }
+
+
+
+void TaskDialog::updateButtons(int row)
+{
+  ui->m_pButtonFirstTask->setEnabled(row > 0);
+  ui->m_pButtonPreviousTask->setEnabled(row > 0);
+
+  ui->m_pButtonNextTask->setEnabled(row < m_pTaskListModel->rowCount() - 1);
+  ui->m_pButtonLastTask->setEnabled(row < m_pTaskListModel->rowCount() - 1);
+}
+
+
+
 
 void	TaskDialog::setCurrentModelIndex(const QModelIndex &index) {
   m_pDataWidgetMapper->setCurrentModelIndex(index);

@@ -1,4 +1,4 @@
-﻿#ifndef TASKDIALOG_H
+#ifndef TASKDIALOG_H
 #define TASKDIALOG_H
 
 #include <QDialog>
@@ -33,6 +33,11 @@ private slots:
   void on_m_pButtonPreviousTask_clicked();
   void on_m_pButtonNextTask_clicked();
   void on_m_pButtonLastTask_clicked();
+
+  void updateButtons(int row);
+
+private:
+  void setupMapping();
 
 private:
   TaskListModel   * const m_pTaskListModel;

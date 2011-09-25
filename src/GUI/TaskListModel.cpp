@@ -22,7 +22,20 @@ QVariant TaskListModel::data(const QModelIndex & index, int role /*= Qt::Display
     return QVariant();
 
   if (Qt::DisplayRole == role || Qt::EditRole == role) {
-    return m_lstTasks.at(index.row())->getName();
+    switch (index.column()) {
+    case 0: return m_lstTasks.at(index.row())->getName();
+      break;
+    case 1: return m_lstTasks.at(index.row())->getDescription();
+      break;
+    case 2: return m_lstTasks.at(index.row())->getBeginTime();
+      break;
+    case 3: return m_lstTasks.at(index.row())->getDurationTime();
+      break;
+    case 4: return m_lstTasks.at(index.row())->getAlarmBeforeTaskTime();
+      break;
+    default:
+      return QVariant();
+    } // switch (index.column())
   }
 
   return QVariant();
