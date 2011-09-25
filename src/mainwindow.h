@@ -2,13 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSystemTrayIcon>
+#include <QTimer>
 
-
-class QSystemTrayIcon;
 class QMenu;
 class QModelIndex;
 class TaskDialog;
 class TaskListModel;
+class SimpleTimerDialog;
 
 namespace Ui {
     class MainWindow;
@@ -29,12 +30,22 @@ private slots:
     void on_m_pActionQuit_triggered();
 
     void editTask(const QModelIndex& index);
+    //void trayIconClicked(QSystemTrayIcon::ActivationReason reason);
+
+    void setSimpleTimer(int sec) {m_pSimpleTimer->start(sec * 1000);}
+
     void showMessage();
+
 
 private:
     Ui::MainWindow *ui;
-    QSystemTrayIcon *m_pTrayIcon;
 
+    QSystemTrayIcon *m_pTrayIcon;
+    QMenu * m_pTrayIconMenu;
+    QAction * m_pSimpleTimerAction;
+
+    SimpleTimerDialog * m_pSimpleTimerDialog;
+    QTimer * m_pSimpleTimer;
     TaskListModel *m_pTaskListModel;
     TaskDialog* m_pTaskDialog;
   };

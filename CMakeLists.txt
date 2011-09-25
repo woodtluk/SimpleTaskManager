@@ -120,6 +120,7 @@ SET( SIMPLETASKMANAGER_SRCS
   ./src/Task.cpp
   ./src/TaskDialog.cpp
   ./src/TaskListModel.cpp
+  ./src/SimpleTimerDialog.cpp
   ./src/Timer.cpp
 )
 
@@ -128,6 +129,7 @@ SET( SIMPLETASKMANAGER_MOC_HDRS
   ./src/MainWindow.h
   ./src/TaskDialog.h
   ./src/TaskListModel.h
+  ./src/SimpleTimerDialog.h
   ./src/Timer.h
 )
 
@@ -138,8 +140,9 @@ SET( SIMPLETASKMANAGER_HDRS
 
 # some .ui files
 SET( SIMPLETASKMANAGER_UIS
-     ./ui/mainwindow.ui
-    ./ui/TaskDialog.ui
+   ./ui/mainwindow.ui
+   ./ui/TaskDialog.ui
+  ./ui/SimpleTimerDialog.ui
 )
 
 # and finally an resource file
