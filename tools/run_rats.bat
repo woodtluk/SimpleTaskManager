@@ -1,0 +1,1 @@
+"C:\Program Files\rats\rats.exe" -w 2 %~dp0\..\src

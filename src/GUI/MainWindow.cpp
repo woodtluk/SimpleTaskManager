@@ -3,21 +3,21 @@
 
 #include <QSystemTrayIcon>
 #include <QModelIndex>
+#include <QDebug>
 
-#include "Task.h"
-#include "TaskDialog.h"
+#include "../Task/Task.h"
+#include "../TaskDialog/TaskDialog.h"
 #include "TaskListModel.h"
-#include "Timer.h"
+#include "../Timer/Timer.h"
 #include "SimpleTimerDialog.h"
 #include "Config.h"
 
-//#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    m_pTrayIcon(new QSystemTrayIcon(this)),
-    m_pTaskListModel(new TaskListModel(this)),
+  QMainWindow(parent),
+  ui(new Ui::MainWindow),
+  m_pTrayIcon(new QSystemTrayIcon(this)),
+  m_pTaskListModel(new TaskListModel(this)),
     m_pTaskDialog(new TaskDialog(m_pTaskListModel, this)),
     m_pTrayIconMenu(new QMenu(this)),
     m_pSimpleTimerAction(new QAction(tr("Simple Timer"),this)),
@@ -25,16 +25,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
-  setWindowIcon(QIcon(":/img/applications-office.png"));
-
- // void checkTasksForAlarm();
-
-  ui->m_pListView->setEditTriggers(QAbstractItemView::SelectedClicked | QAbstractItemView::EditKeyPressed);
-
+  ui->m_pListView->setModel(m_pTaskListModel);
   connect(ui->m_pListView, SIGNAL(doubleClicked(const QModelIndex&)),SLOT(editTask(const QModelIndex&)));
 
-  ui->m_pListView->setModel(m_pTaskListModel);
 
+  setWindowIcon(QIcon(":/img/applications-office.png"));
+
+  // Timer
   connect(Timer::getInstance().data(), SIGNAL(timeout()), m_pTaskListModel, SLOT(checkTasksForAlarm()));
 
   m_pTrayIcon->setIcon(QIcon(":/img/applications-office.png"));
@@ -48,29 +45,28 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
- /* std::cout << "Version: "
-            << APPLICATION_VERSION_MAJOR << "." <<
-            APPLICATION_VERSION_MINOR << std::endl;*/
+  qDebug() << APPLICATION_VERSION_MAJOR << "." <<
+              APPLICATION_VERSION_MINOR;
+
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+  delete ui;
 }
+
 
 void MainWindow::on_m_pActionQuit_triggered()
 {
-    QCoreApplication::quit();
+  QCoreApplication::quit();
 }
 
+/// @todo handle abborting editing new task
 void MainWindow::on_m_pActionAddTask_triggered()
 {
-
-
-    /*QDialog::DialogCode*/ int code = m_pTaskDialog->addNewTask();
+  /*QDialog::DialogCode int code = */ m_pTaskDialog->createNewTask();
 
 }
-
 
 void MainWindow::on_m_pActionRemoveTask_triggered()
 {
@@ -79,11 +75,9 @@ void MainWindow::on_m_pActionRemoveTask_triggered()
   {
     m_pTaskListModel->removeTask(index.row());
   }
-
 }
 
 void MainWindow::editTask(const QModelIndex& index) {
-  /// @todo addapt this to the task dialog with data mapper
   m_pTaskDialog->setCurrentModelIndex(index);
   m_pTaskDialog->disableBrowseButtons(false);
   
@@ -96,6 +90,5 @@ void MainWindow::showMessage() {
   m_pTrayIcon->show();
   m_pTrayIcon->showMessage("Time:", QTime::currentTime().toString(), QSystemTrayIcon::Information);
 }
-
 
 
