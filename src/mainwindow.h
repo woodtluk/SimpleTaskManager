@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QSystemTrayIcon>
-#include <QTimer>
+//#include <QTimer>
 
 class QMenu;
 class QModelIndex;
@@ -32,8 +32,6 @@ private slots:
     void editTask(const QModelIndex& index);
     //void trayIconClicked(QSystemTrayIcon::ActivationReason reason);
 
-    void setSimpleTimer(int sec) {m_pSimpleTimer->start(sec * 1000);}
-
     void showMessage();
 
 
@@ -45,7 +43,6 @@ private:
     QAction * m_pSimpleTimerAction;
 
     SimpleTimerDialog * m_pSimpleTimerDialog;
-    QTimer * m_pSimpleTimer;
     TaskListModel *m_pTaskListModel;
     TaskDialog* m_pTaskDialog;
   };

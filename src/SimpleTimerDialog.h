@@ -17,14 +17,20 @@ public:
     explicit SimpleTimerDialog(QWidget *parent = 0);
     ~SimpleTimerDialog();
 
+public slots:
+  virtual void	accept();
+  virtual void	reject();
+
 signals:
     void acceptTimer(int msec);
 
 private slots:
-        void acceptTimerSet(){}
+    void simpleTimerShot();
+    //void acceptTimerSet(){}
 
 private:
     QIntValidator * m_pIntValidator;
+    QTimer * m_pSimpleTimer;
 
     Ui::SimpleTimerDialog *ui;
 };

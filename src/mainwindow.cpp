@@ -21,8 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pTaskDialog(new TaskDialog(m_pTaskListModel, this)),
     m_pTrayIconMenu(new QMenu(this)),
     m_pSimpleTimerAction(new QAction(tr("Simple Timer"),this)),
-    m_pSimpleTimerDialog(new SimpleTimerDialog(this)),
-    m_pSimpleTimer(new QTimer(this))
+    m_pSimpleTimerDialog(new SimpleTimerDialog(this))
 {
   ui->setupUi(this);
 
@@ -45,8 +44,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
   connect(m_pSimpleTimerAction, SIGNAL(triggered()),
           m_pSimpleTimerDialog, SLOT(show()));
-  connect(m_pSimpleTimerDialog, SIGNAL(acceptSetTimer(int)), m_pSimpleTimer, SLOT(start(int)));
-  connect(m_pSimpleTimerDialog, SIGNAL(rejected()), m_pSimpleTimer, SLOT(stop()));
 
 
 
