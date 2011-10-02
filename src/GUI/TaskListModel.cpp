@@ -45,14 +45,33 @@ bool TaskListModel::setData(const QModelIndex& index, const QVariant& value, int
   if (!index.isValid())
     return false;
 
-  if (Qt::EditRole == role) {
-    m_lstTasks.at(index.row())->setName(value.toString());
+  if (Qt::DisplayRole == role || Qt::EditRole == role) {
+    TaskPtr task = m_lstTasks.at(index.row());
+    switch (index.column()) {
+    case 0:  task->setName(value.toString());
+             return true;
+      break;
+    case 1: task->setDescription(value.toString());
+            return true;
+      break;
+    case 2: task->setBeginTime(value.toTime());
+            return true;
+      break;
+    case 3: task->setDurationTime(value.toTime());
+            return true;
+      break;
+    case 4: task->setAlarmBeforeTaskTime(value.toTime());
+            return true;
+      break;
+    default:
+      return false;
+    } // switch (index.column())
   }
 
   return false;
 }
 
-TaskPtr TaskListModel::getTask(int index) const {
+const TaskPtr TaskListModel::getTask(int index) const {
   return m_lstTasks.at(index);
 }
 

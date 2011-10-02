@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+#include "../Task/Task.h"
 
 class QSystemTrayIcon;
 class QMenu;
@@ -23,7 +24,8 @@ public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
-private:
+protected:
+  virtual void changeEvent(QEvent* e);
 
 private slots:
   void on_m_pActionRemoveTask_triggered();
@@ -33,7 +35,11 @@ private slots:
   void editTask(const QModelIndex& index);
   //void trayIconClicked(QSystemTrayIcon::ActivationReason reason);
 
-  void showMessage();
+  void minuteTimeout();
+
+private:
+  void showMessage(QString strName) const;
+  void checkIfAlarm(TaskPtr task) const;
 
 private:
   Ui::MainWindow *ui;
@@ -41,6 +47,7 @@ private:
   QSystemTrayIcon *m_pTrayIcon;
   QMenu * m_pTrayIconMenu;
   QAction * m_pSimpleTimerAction;
+  QAction * m_pShowWindowAction;
 
   SimpleTimerDialog * m_pSimpleTimerDialog;
   TaskListModel *m_pTaskListModel;

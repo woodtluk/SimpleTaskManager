@@ -36,7 +36,7 @@ public:
 
   bool setData(const QModelIndex& index, const QVariant& value, int role=Qt::EditRole);
 
-  TaskPtr getTask(int index) const;
+  const TaskPtr getTask(int index) const;
 
   bool insertRow ( int row, const QModelIndex & parent = QModelIndex() );
   bool removeRow ( int row, const QModelIndex & parent = QModelIndex() );

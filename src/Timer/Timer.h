@@ -23,7 +23,7 @@ public:
     virtual ~Timer() {}
 private slots:
 
-    void startMinuteTimer() {start(60 * 1000);}
+    void startMinuteTimer() {start(60 * 1000); emit timeout();}
 
 private:
     static TimerPtr m_singleton;
