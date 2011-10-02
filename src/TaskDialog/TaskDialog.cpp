@@ -66,6 +66,7 @@ void TaskDialog::setupMapping() {
 
   m_pDataWidgetMapper->addMapping(ui->m_pComboBoxAlarmBefore, 4);
 
+  m_pDataWidgetMapper->setSubmitPolicy(QDataWidgetMapper::AutoSubmit);
 }
 
 void TaskDialog::disableBrowseButtons(bool disable)
@@ -120,7 +121,8 @@ int TaskDialog::createNewTask()
   m_pDataWidgetMapper->toLast();
   disableBrowseButtons(true);
 
-  switch (exec()) {
+  int execResult = exec();
+  switch (execResult) {
   case QDialog::Accepted:
     // acept new task data
     m_pDataWidgetMapper->submit();
@@ -130,6 +132,8 @@ int TaskDialog::createNewTask()
     m_pTaskListModel->removeLastTask();
     break;
   }
+
+  return execResult;
 }
 
 void TaskDialog::updateButtons(int row)

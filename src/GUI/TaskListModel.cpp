@@ -6,7 +6,7 @@
 #include "../Task/Task.h"
 
 TaskListModel::TaskListModel(QObject *parent) :
-  QAbstractListModel(parent)
+  QAbstractItemModel(parent)
 {
 #warning Remove this:
   m_lstTasks << TaskPtr(new Task("a")) << TaskPtr(new Task("b"))
@@ -15,6 +15,10 @@ TaskListModel::TaskListModel(QObject *parent) :
 
 int TaskListModel::rowCount(const QModelIndex & parent /* = QModelIndex() */) const {
   return m_lstTasks.count();
+}
+
+int TaskListModel::columnCount(const QModelIndex &parent /* = QModelIndex() */) const {
+  return 5;
 }
 
 QVariant TaskListModel::data(const QModelIndex & index, int role /*= Qt::DisplayRole*/) const {
@@ -69,6 +73,16 @@ bool TaskListModel::setData(const QModelIndex& index, const QVariant& value, int
   }
 
   return false;
+}
+
+
+QModelIndex TaskListModel::index(int row, int column,
+                                 const QModelIndex &parent /* = QModelIndex() */) const {
+  return createIndex(row, column);
+}
+
+QModelIndex TaskListModel::parent(const QModelIndex &child) const {
+  return QModelIndex();
 }
 
 const TaskPtr TaskListModel::getTask(int index) const {

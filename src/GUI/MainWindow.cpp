@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
   connect(m_pShowWindowAction, SIGNAL(triggered()),
           this, SLOT(show()));
   connect(m_pShowWindowAction, SIGNAL(triggered()),
-          this, SLOT(activateWindow()));
+          this, SLOT(rise()));
 
 
   connect(Timer::getInstance().data(), SIGNAL(timeout()),

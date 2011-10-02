@@ -44,14 +44,14 @@ private:
 private:
   Ui::MainWindow *ui;
 
+  SimpleTimerDialog * m_pSimpleTimerDialog;
+  TaskListModel *m_pTaskListModel;
+  TaskDialog* m_pTaskDialog;
+
   QSystemTrayIcon *m_pTrayIcon;
   QMenu * m_pTrayIconMenu;
   QAction * m_pSimpleTimerAction;
   QAction * m_pShowWindowAction;
-
-  SimpleTimerDialog * m_pSimpleTimerDialog;
-  TaskListModel *m_pTaskListModel;
-  TaskDialog* m_pTaskDialog;
 };
 
 #endif // MAINWINDOW_H

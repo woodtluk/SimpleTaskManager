@@ -6,7 +6,7 @@
 
 #include "../Task/Task.h"
 
-class TaskListModel : public QAbstractListModel
+class TaskListModel : public QAbstractItemModel
 {
   Q_OBJECT
 public:
@@ -30,7 +30,9 @@ public:
     removeRow(m_lstTasks.count() - 1);
   }
 
-  int rowCount(const QModelIndex & parent = QModelIndex()) const;
+  virtual int rowCount(const QModelIndex & parent = QModelIndex()) const;
+  virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
+
   QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
   Qt::ItemFlags flags ( const QModelIndex & index ) const;
 
@@ -41,6 +43,9 @@ public:
   bool insertRow ( int row, const QModelIndex & parent = QModelIndex() );
   bool removeRow ( int row, const QModelIndex & parent = QModelIndex() );
 
+  virtual QModelIndex index(int row, int column,
+                            const QModelIndex &parent = QModelIndex()) const;
+  virtual QModelIndex parent(const QModelIndex &child) const;
 
 signals:
 
