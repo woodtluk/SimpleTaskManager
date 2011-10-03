@@ -29,7 +29,7 @@ public:
 
 private slots:
     /// Calling this slot starts the timer with a timeout of one minute.
-    void startMinuteTimer() {start(60 * 1000);}
+    void startMinuteTimer() {start(60 * 1000); emit timeout();}
 
 private:
     //// The singleton object.
