@@ -34,22 +34,20 @@ MainWindow::MainWindow(QWidget *parent) :
   setWindowIcon(QIcon(":/img/applications-office.png"));
 
   // Timer
-  connect(Timer::getInstance().data(), SIGNAL(timeout()), m_pTaskListModel, SLOT(checkTasksForAlarm()));
+  //connect(Timer::getInstance().data(), SIGNAL(timeout()), m_pTaskListModel, SLOT(checkTasksForAlarm()));
 
   m_pTrayIcon->setIcon(QIcon(":/img/applications-office.png"));
   m_pTrayIconMenu->addAction(m_pSimpleTimerAction);
   m_pTrayIconMenu->addAction(m_pShowWindowAction);
   m_pTrayIconMenu->addAction(ui->m_pActionQuit);
   m_pTrayIcon->setContextMenu(m_pTrayIconMenu);
+  connect(m_pTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(trayIconClicked(QSystemTrayIcon::ActivationReason)));
   m_pTrayIcon->show();
 
   connect(m_pSimpleTimerAction, SIGNAL(triggered()),
           m_pSimpleTimerDialog, SLOT(show()));
   connect(m_pShowWindowAction, SIGNAL(triggered()),
-          this, SLOT(show()));
-  connect(m_pShowWindowAction, SIGNAL(triggered()),
-          this, SLOT(rise()));
-
+          this, SLOT(bringUpWindowFromTray()));
 
   connect(Timer::getInstance().data(), SIGNAL(timeout()),
           this, SLOT(minuteTimeout()));
@@ -120,8 +118,9 @@ void MainWindow::checkIfAlarm(TaskPtr task) const {
     showMessage(task->getName());
   }
 }
-
+/// @todo call QSystemTrayIcon::isSystemTrayAvailable() before minimze to tray
 void MainWindow::changeEvent(QEvent* e) {
+
   switch (e->type()) {
     case QEvent::LanguageChange: this->ui->retranslateUi(this);
       break;
@@ -136,4 +135,18 @@ void MainWindow::changeEvent(QEvent* e) {
     } /* switch (e->type()) */
 
     QMainWindow::changeEvent(e);
+}
+
+void MainWindow::bringUpWindowFromTray() {
+   showMinimized(); // This is to bring up the window if not minimized
+                              // but beneath some other window
+   setWindowState(Qt::WindowActive);
+   showNormal();
+}
+
+void MainWindow::trayIconClicked(QSystemTrayIcon::ActivationReason reason)
+{
+  if (QSystemTrayIcon::DoubleClick == reason) {
+    bringUpWindowFromTray();
+  }
 }

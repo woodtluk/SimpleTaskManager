@@ -11,6 +11,12 @@ TaskListModel::TaskListModel(QObject *parent) :
 #warning Remove this:
   m_lstTasks << TaskPtr(new Task("a")) << TaskPtr(new Task("b"))
              << TaskPtr(new Task("c"))  << TaskPtr(new Task("d")) ;
+
+  int i=3;
+  foreach(TaskPtr task, m_lstTasks) {
+    task->setBeginTime(QTime(i,1+5));
+    i+=2;
+  }
 }
 
 int TaskListModel::rowCount(const QModelIndex & parent /* = QModelIndex() */) const {

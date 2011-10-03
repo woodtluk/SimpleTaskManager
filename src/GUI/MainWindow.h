@@ -3,9 +3,10 @@
 
 #include <QMainWindow>
 
+#include <QSystemTrayIcon>
 #include "../Task/Task.h"
 
-class QSystemTrayIcon;
+
 class QMenu;
 class QModelIndex;
 class TaskDialog;
@@ -33,7 +34,8 @@ private slots:
   void on_m_pActionQuit_triggered();
 
   void editTask(const QModelIndex& index);
-  //void trayIconClicked(QSystemTrayIcon::ActivationReason reason);
+  void trayIconClicked(QSystemTrayIcon::ActivationReason reason);
+  void bringUpWindowFromTray();
 
   void minuteTimeout();
 

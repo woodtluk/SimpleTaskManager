@@ -56,17 +56,20 @@ TaskDialog::~TaskDialog()
 }
 
 void TaskDialog::setupMapping() {
+
   m_pDataWidgetMapper->addMapping(ui->m_pLineEditTaskName, 0);
-
   m_pDataWidgetMapper->addMapping(ui->m_pTextEditTaskDescription, 1);
-
   m_pDataWidgetMapper->addMapping(ui->m_pTimeEditBegin, 2);
-
   m_pDataWidgetMapper->addMapping(ui->m_pTimeEditDuration, 3);
-
   m_pDataWidgetMapper->addMapping(ui->m_pComboBoxAlarmBefore, 4);
 
-  m_pDataWidgetMapper->setSubmitPolicy(QDataWidgetMapper::AutoSubmit);
+  m_pDataWidgetMapper->setRootIndex(QModelIndex());
+  //m_pDataWidgetMapper->setSubmitPolicy(QDataWidgetMapper::AutoSubmit);
+
+
+  connect(m_pDataWidgetMapper, SIGNAL(currentIndexChanged(int)),
+          m_pDataWidgetMapper, SLOT(submit()));
+
 }
 
 void TaskDialog::disableBrowseButtons(bool disable)
