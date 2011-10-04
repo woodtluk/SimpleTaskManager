@@ -17,13 +17,13 @@
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow),
-  m_pTrayIcon(new QSystemTrayIcon(this)),
+  m_pSimpleTimerDialog(new SimpleTimerDialog(this)),
   m_pTaskListModel(new TaskListModel(this)),
-    m_pTaskDialog(new TaskDialog(m_pTaskListModel, this)),
-    m_pTrayIconMenu(new QMenu(this)),
-    m_pSimpleTimerAction(new QAction(tr("Simple Timer"),this)),
-    m_pShowWindowAction(new QAction(tr("Show Window"),this)),
-    m_pSimpleTimerDialog(new SimpleTimerDialog(this))
+  m_pTaskDialog(new TaskDialog(m_pTaskListModel, this)),
+  m_pTrayIcon(new QSystemTrayIcon(this)),
+  m_pTrayIconMenu(new QMenu(this)),
+  m_pSimpleTimerAction(new QAction(tr("Simple Timer"),this)),
+  m_pShowWindowAction(new QAction(tr("Show Window"),this))
 {
   ui->setupUi(this);
 
@@ -93,7 +93,7 @@ void MainWindow::editTask(const QModelIndex& index) {
 }
 
 void MainWindow::minuteTimeout() {
-  for (quint32 i=0; i<m_pTaskListModel->rowCount(); ++i) {
+  for (qint32 i=0; i<m_pTaskListModel->rowCount(); ++i) {
     TaskPtr task = m_pTaskListModel->getTask(i);
     checkIfAlarm(task);
   }

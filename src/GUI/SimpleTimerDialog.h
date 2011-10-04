@@ -29,10 +29,10 @@ private slots:
     //void acceptTimerSet(){}
 
 private:
+    Ui::SimpleTimerDialog *ui;
+
     QIntValidator * m_pIntValidator;
     QTimer * m_pSimpleTimer;
-
-    Ui::SimpleTimerDialog *ui;
 };
 
 #endif // SIMPLETIMERDIALOG_H
