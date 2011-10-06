@@ -63,12 +63,12 @@ void TaskDialog::setupMapping() {
   m_pDataWidgetMapper->addMapping(ui->m_pTimeEditDuration, 3);
   m_pDataWidgetMapper->addMapping(ui->m_pComboBoxAlarmBefore, 4);
 
-  m_pDataWidgetMapper->setRootIndex(QModelIndex());
-  //m_pDataWidgetMapper->setSubmitPolicy(QDataWidgetMapper::AutoSubmit);
+  //m_pDataWidgetMapper->setRootIndex(QModelIndex());
+  m_pDataWidgetMapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
 
-  connect(m_pDataWidgetMapper, SIGNAL(currentIndexChanged(int)),
-          m_pDataWidgetMapper, SLOT(submit()));
+  /*connect(m_pDataWidgetMapper, SIGNAL(currentIndexChanged(int)),
+          m_pDataWidgetMapper, SLOT(submit()));*/
 
 }
 
@@ -98,21 +98,25 @@ void TaskDialog::on_m_pOkAbbortButtonBox_accepted()
 
 void TaskDialog::on_m_pButtonFirstTask_clicked()
 {
+  m_pDataWidgetMapper->submit();
   m_pDataWidgetMapper->toFirst();
 }
 
 void TaskDialog::on_m_pButtonPreviousTask_clicked()
 {
+    m_pDataWidgetMapper->submit();
   m_pDataWidgetMapper->toPrevious();
 }
 
 void TaskDialog::on_m_pButtonNextTask_clicked()
 {
+    m_pDataWidgetMapper->submit();
   m_pDataWidgetMapper->toNext();
 }
 
 void TaskDialog::on_m_pButtonLastTask_clicked()
 {
+    m_pDataWidgetMapper->submit();
   m_pDataWidgetMapper->toLast();
 }
 
@@ -151,3 +155,4 @@ void TaskDialog::updateButtons(int row)
 void	TaskDialog::setCurrentModelIndex(const QModelIndex &index) {
   m_pDataWidgetMapper->setCurrentModelIndex(index);
 }
+

@@ -46,9 +46,10 @@ private:
 private:
   Ui::MainWindow *ui;
 
-  SimpleTimerDialog * m_pSimpleTimerDialog;
   TaskListModel *m_pTaskListModel;
   TaskDialog* m_pTaskDialog;
+
+  SimpleTimerDialog * m_pSimpleTimerDialog;
 
   QSystemTrayIcon *m_pTrayIcon;
   QMenu * m_pTrayIconMenu;

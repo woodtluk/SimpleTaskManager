@@ -81,7 +81,6 @@ bool TaskListModel::setData(const QModelIndex& index, const QVariant& value, int
   return false;
 }
 
-
 QModelIndex TaskListModel::index(int row, int column,
                                  const QModelIndex &parent /* = QModelIndex() */) const {
   return createIndex(row, column);
