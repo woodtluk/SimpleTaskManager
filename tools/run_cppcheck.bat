@@ -1,0 +1,1 @@
+cppcheck --enable=all %~dp0\..\src
