@@ -133,7 +133,9 @@ SET( SIMPLETASKMANAGER_SRCS
   ./src/GUI/TaskListModel.cpp
   ./src/GUI/SimpleTimerDialog.cpp
   ./src/GUI/TaskListView.cpp
+  ./src/GUI/TrayIcon.cpp
   ./src/Timer/Timer.cpp
+
 )
 
 
@@ -144,8 +146,8 @@ SET( SIMPLETASKMANAGER_MOC_HDRS
   ./src/TaskDialog/TaskDialog.h
   ./src/GUI/TaskListModel.h
   ./src/GUI/SimpleTimerDialog.h
+  ./src/GUI/TrayIcon.h
   ./src/Timer/Timer.h
-
   ./src/GUI/TaskListModel.h)
 
 # and finally this will run moc:
