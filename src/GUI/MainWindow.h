@@ -6,6 +6,8 @@
 #include <QSystemTrayIcon>
 #include "../Task/Task.h"
 
+#include "TrayIcon.h"
+
 
 class QMenu;
 class QModelIndex;
@@ -51,10 +53,7 @@ private:
 
   SimpleTimerDialog * m_pSimpleTimerDialog;
 
-  QSystemTrayIcon *m_pTrayIcon;
-  QMenu * m_pTrayIconMenu;
-  QAction * m_pSimpleTimerAction;
-  QAction * m_pShowWindowAction;
+  TrayIcon *m_pTrayIcon;
 };
 
 #endif // MAINWINDOW_H

@@ -13,6 +13,7 @@ private:
     QAction * m_pSimpleTimerAction;
     QAction * m_pShowWindowAction;
 
+
 };
 
 #endif // TRAYICON_H

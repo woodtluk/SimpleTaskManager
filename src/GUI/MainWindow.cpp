@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QSystemTrayIcon>
 #include <QModelIndex>
 #include <QDebug>
 #include <QMessageBox>
@@ -20,8 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
   m_pTaskListModel(new TaskListModel(this)),
   m_pTaskDialog(new TaskDialog(m_pTaskListModel, this)),
   m_pSimpleTimerDialog(new SimpleTimerDialog(this)),
-  m_pTrayIcon(new QSystemTrayIcon(this)),
-  m_pTrayIconMenu(new QMenu(this)),
+  m_pTrayIcon(new TrayIcon(this)),
   m_pSimpleTimerAction(new QAction(tr("Simple Timer"),this)),
   m_pShowWindowAction(new QAction(tr("Show Window"),this))
 {
@@ -30,17 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->m_pListView->setModel(m_pTaskListModel);
   connect(ui->m_pListView, SIGNAL(doubleClicked(const QModelIndex&)),SLOT(editTask(const QModelIndex&)));
 
-
   setWindowIcon(QIcon(":/img/applications-office.png"));
 
-  // Timer
-  //connect(Timer::getInstance().data(), SIGNAL(timeout()), m_pTaskListModel, SLOT(checkTasksForAlarm()));
-
-  m_pTrayIcon->setIcon(QIcon(":/img/applications-office.png"));
-  m_pTrayIconMenu->addAction(m_pSimpleTimerAction);
-  m_pTrayIconMenu->addAction(m_pShowWindowAction);
-  m_pTrayIconMenu->addAction(ui->m_pActionQuit);
-  m_pTrayIcon->setContextMenu(m_pTrayIconMenu);
   connect(m_pTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(trayIconClicked(QSystemTrayIcon::ActivationReason)));
   m_pTrayIcon->show();
 
@@ -100,7 +89,6 @@ void MainWindow::minuteTimeout() {
 }
 
 void MainWindow::showMessage(QString strName) const {
-  m_pTrayIcon->setIcon(windowIcon());
   m_pTrayIcon->show();
   m_pTrayIcon->showMessage(strName, "Time:" + QTime::currentTime().toString(), QSystemTrayIcon::Information);
 
