@@ -1,6 +1,7 @@
 #include "TaskListModel.h"
 
 #include <QMessageBox>
+#include <QDebug>
 
 #include "../Timer/Timer.h"
 #include "../Task/Task.h"
@@ -59,25 +60,22 @@ bool TaskListModel::setData(const QModelIndex& index, const QVariant& value, int
     TaskPtr task = m_lstTasks.at(index.row());
     switch (index.column()) {
     case 0:  task->setName(value.toString());
-             return true;
       break;
     case 1: task->setDescription(value.toString());
-            return true;
       break;
     case 2: task->setBeginTime(value.toTime());
-            return true;
       break;
     case 3: task->setDurationTime(value.toTime());
-            return true;
       break;
     case 4: task->setAlarmBeforeTaskTime(value.toTime());
-            return true;
       break;
     default:
       return false;
     } // switch (index.column())
+    return true;
   }
 
+  qDebug() << "this line should not be hit.";
   return false;
 }
 
