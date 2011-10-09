@@ -16,14 +16,9 @@
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow),
-  m_pTrayIcon(new TrayIcon(this)),
-  m_pSimpleTimerAction(new QAction(tr("Simple Timer"),this)),
-  m_pShowWindowAction(new QAction(tr("Show Window"),this))
-  m_pSimpleTimerDialog(new SimpleTimerDialog(this)),
   m_pTaskListModel(new TaskListModel(this)),
   m_pTaskDialog(new TaskDialog(m_pTaskListModel, this)),
-  m_pSimpleTimerAction(new QAction(tr("Simple Timer"),this)),
-  m_pShowWindowAction(new QAction(tr("Show Window"),this))
+  m_pTrayIcon(new TrayIcon(this))
 {
   ui->setupUi(this);
 
@@ -35,13 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
   // Timer
   //connect(Timer::getInstance().data(), SIGNAL(timeout()), m_pTaskListModel, SLOT(checkTasksForAlarm()));
 
-  //connect(m_pTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(trayIconClicked(QSystemTrayIcon::ActivationReason)));
   //m_pTrayIcon->show();
 
-  connect(m_pSimpleTimerAction, SIGNAL(triggered()),
-          m_pSimpleTimerDialog, SLOT(show()));
-  connect(m_pShowWindowAction, SIGNAL(triggered()),
-          this, SLOT(bringUpWindowFromTray()));
 
   connect(Timer::getInstance().data(), SIGNAL(timeout()),
           this, SLOT(minuteTimeout()));
@@ -137,9 +127,4 @@ void MainWindow::bringUpWindowFromTray() {
    showNormal();
 }
 
-void MainWindow::trayIconClicked(QSystemTrayIcon::ActivationReason reason)
-{
-  if (QSystemTrayIcon::DoubleClick == reason) {
-    bringUpWindowFromTray();
-  }
-}
+

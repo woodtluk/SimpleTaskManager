@@ -12,6 +12,7 @@ Timer::Timer()
 TimerPtr Timer::getInstance() {
   if (m_singleton.isNull()) {
     m_singleton = TimerPtr(new Timer());
+    /// @todo Put this stuf into constructor and use Singleton template class.
     QTime currentTime = QTime::currentTime();
     int nMsecToMinute = (60 - currentTime.second()) * 1000;
     QTimer::singleShot(nMsecToMinute, m_singleton.data(), SLOT(startMinuteTimer()));

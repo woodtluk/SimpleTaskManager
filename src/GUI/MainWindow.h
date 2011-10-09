@@ -23,6 +23,8 @@ class MainWindow : public QMainWindow
 {
   Q_OBJECT
 
+  friend class TrayIcon;
+
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
@@ -36,7 +38,6 @@ private slots:
   void on_m_pActionQuit_triggered();
 
   void editTask(const QModelIndex& index);
-  void trayIconClicked(QSystemTrayIcon::ActivationReason reason);
   void bringUpWindowFromTray();
 
   void minuteTimeout();
@@ -50,9 +51,6 @@ private:
 
   TaskListModel *m_pTaskListModel;
   TaskDialog* m_pTaskDialog;
-
-  SimpleTimerDialog * m_pSimpleTimerDialog;
-
   TrayIcon *m_pTrayIcon;
 };
 
