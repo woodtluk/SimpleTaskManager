@@ -40,7 +40,7 @@ private slots:
   void on_m_pButtonNextTask_clicked();
   void on_m_pButtonLastTask_clicked();
 
-  void updateButtons(int row);
+  void submitAndUpdateButtons(int row);
 
 private:
   /// Setup the mapping between the model and the widgets.

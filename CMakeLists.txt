@@ -68,7 +68,7 @@ ELSE(NOT QT4_FOUND)
 
 # don't know exactly what that is
 #SET(CMAKE_PACKAGE_QTGUI TRUE)
-# i don't want to install or package the qt gui on windows 
+# i don't want to install or package the qt gui on windows
 # unless qt is static
 #IF(WIN32 AND NOT QT_CONFIG MATCHES "static")
 #  SET(CMAKE_PACKAGE_QTGUI FALSE)
@@ -156,6 +156,7 @@ QT4_WRAP_CPP( SIMPLETASKMANAGER_MOC_SRCS ${SIMPLETASKMANAGER_MOC_HDRS} )
 # headers that are not treated with moc
 SET( SIMPLETASKMANAGER_HDRS
   ./src/Task/Task.h
+  ./src/lib/Singleton.h
 )
 
 
@@ -205,7 +206,7 @@ INSTALL_TARGETS( /bin SimpleTaskManager )
 
 
  # IF(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.4)
-    # SET(CMAKE_INSTALL_DESTINATION_ARGS 
+    # SET(CMAKE_INSTALL_DESTINATION_ARGS
       # BUNDLE DESTINATION "${CMAKE_BUNDLE_LOCATION}")
   # ENDIF(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.4)
  # if qt is not static and we are on windows then skip the install
@@ -232,12 +233,12 @@ INSTALL_TARGETS( /bin SimpleTaskManager )
       # "${CMake_BINARY_DIR}/Source/QtDialog/postflight.sh")
     # configure_file("${CMake_SOURCE_DIR}/Source/QtDialog/postupgrade.sh.in"
       # "${CMake_BINARY_DIR}/Source/QtDialog/postupgrade.sh")
-    # INSTALL(CODE "set(input_file 
+    # INSTALL(CODE "set(input_file
        # \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/MacOS/cmake-gui\")")
     # INSTALL(SCRIPT "${CMake_SOURCE_DIR}/Source/QtDialog/CMakeIngestOSXBundleLibraries.cmake")
   # ENDIF(APPLE)
   # CONFIGURE_FILE("${QtDialog_SOURCE_DIR}/QtDialogCPack.cmake.in"
-    # "${QtDialog_BINARY_DIR}/QtDialogCPack.cmake" @ONLY)    
+    # "${QtDialog_BINARY_DIR}/QtDialogCPack.cmake" @ONLY)
 ENDIF(NOT QT4_FOUND)
 
 

@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
   m_pTrayIcon(new TrayIcon(this)),
   m_pSimpleTimerAction(new QAction(tr("Simple Timer"),this)),
   m_pShowWindowAction(new QAction(tr("Show Window"),this))
+  m_pSimpleTimerAction(new QAction(tr("Simple Timer"),this)),
+  m_pShowWindowAction(new QAction(tr("Show Window"),this))
 {
   ui->setupUi(this);
 

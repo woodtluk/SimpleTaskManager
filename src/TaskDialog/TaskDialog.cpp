@@ -20,7 +20,7 @@ TaskDialog::TaskDialog(TaskListModel *pModel, QWidget *parent) :
   m_pDataWidgetMapper->setModel(pModel);
   setupMapping();
   connect(m_pDataWidgetMapper, SIGNAL(currentIndexChanged(int)),
-          this, SLOT(updateButtons(int)));
+          this, SLOT(submitAndUpdateButtons(int)));
 
     /** @todo Converting the combo box to a time and vice versa.
     QTime timeBeforeAlarm;
@@ -143,8 +143,11 @@ int TaskDialog::createNewTask()
   return execResult;
 }
 
-void TaskDialog::updateButtons(int row)
+void TaskDialog::submitAndUpdateButtons(int row)
 {
+  setFocus();
+  m_pDataWidgetMapper->submit();
+
   ui->m_pButtonFirstTask->setEnabled(row > 0);
   ui->m_pButtonPreviousTask->setEnabled(row > 0);
 
