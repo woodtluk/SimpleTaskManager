@@ -1,5 +1,5 @@
-#include "simpletimerdialog.h"
-#include "ui_simpletimerdialog.h"
+#include "SimpleTimerDialog.h"
+#include "ui_SimpleTimerDialog.h"
 
 #include <QIntValidator>
 #include <QMessageBox>

@@ -4,7 +4,7 @@
 #include <QAction>
 
 #include "MainWindow.h"
-#include "ui_mainwindow.h"
+#include "ui_MainWindow.h"
 #include "SimpleTimerDialog.h"
 
 TrayIcon::TrayIcon(MainWindow * parent) :
