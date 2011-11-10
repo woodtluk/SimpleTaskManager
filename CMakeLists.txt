@@ -37,7 +37,7 @@ IF(CMAKE_COMPILER_IS_GNUCXX )
 ENDIF(CMAKE_COMPILER_IS_GNUCXX )
 
 IF(MSVC)
-  ADD_DEFINITIONS(-DQT_DLL -Wall)
+  ADD_DEFINITIONS(-DQT_DLL -W 3) # Warning Levels from 0..4 (s. a. http://msdn.microsoft.com/en-us/library/thxezb7y.aspx)
 ENDIF(MSVC)
 
 # Set some Win32 Specific Settings
