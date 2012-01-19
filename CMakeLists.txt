@@ -74,7 +74,7 @@ ELSE(NOT QT4_FOUND)
 #  SET(CMAKE_PACKAGE_QTGUI FALSE)
 #ENDIF(WIN32 AND NOT QT_CONFIG MATCHES "static")
 
-
+FIND_PACKAGE(Qt4)
 # add some useful macros and variables
 # (QT_USE_FILE is a variable defined by FIND_PACKAGE( Qt4 ) that contains a path to CMake script)
 INCLUDE( ${QT_USE_FILE} )
@@ -116,6 +116,25 @@ IF(WIN32) # and mingw/gcc
   SET(QT_USE_QTMAIN TRUE)
 ENDIF(WIN32)
 
+
+IF(WIN32)
+    LINK_LIBRARIES(
+    ${QT_QTMAIN_LIBRARY}
+    )
+ENDIF(WIN32)
+
+IF(WIN32)
+    ADD_DEFINITIONS(-DQT_DLL)
+ENDIF(WIN32)
+
+
+
+
+
+
+
+
+
 #add_subdirectory(./src)
 
 
@@ -134,6 +153,7 @@ SET( SIMPLETASKMANAGER_SRCS
   ./src/GUI/SimpleTimerDialog.cpp
   ./src/GUI/TaskListView.cpp
   ./src/GUI/TrayIcon.cpp
+  ./src/GUI/NotifyDialog.cpp
   ./src/Timer/Timer.cpp
 
 )
@@ -148,7 +168,9 @@ SET( SIMPLETASKMANAGER_MOC_HDRS
   ./src/GUI/SimpleTimerDialog.h
   ./src/GUI/TrayIcon.h
   ./src/Timer/Timer.h
-  ./src/GUI/TaskListModel.h)
+  ./src/GUI/TaskListModel.h
+  ./src/GUI/NotifyDialog.h
+)
 
 # and finally this will run moc:
 QT4_WRAP_CPP( SIMPLETASKMANAGER_MOC_SRCS ${SIMPLETASKMANAGER_MOC_HDRS} )
@@ -165,6 +187,7 @@ SET( SIMPLETASKMANAGER_UIS
     ./src/GUI/MainWindow.ui
     ./src/TaskDialog/TaskDialog.ui
     ./src/GUI/SimpleTimerDialog.ui
+    ./src/GUI/NotifyDialog.ui
 )
 
 # and finally an resource file

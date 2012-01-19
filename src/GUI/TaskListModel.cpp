@@ -9,7 +9,7 @@
 TaskListModel::TaskListModel(QObject *parent) :
   QAbstractItemModel(parent)
 {
-#warning Remove this:
+/// @todo Remove this:
   m_lstTasks << TaskPtr(new Task("a")) << TaskPtr(new Task("b"))
              << TaskPtr(new Task("c"))  << TaskPtr(new Task("d")) ;
 
