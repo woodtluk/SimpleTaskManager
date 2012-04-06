@@ -4,6 +4,9 @@
 #include <QModelIndex>
 #include <QDebug>
 #include <QMessageBox>
+#include <QDesktopServices>
+#include <QFile>
+#include <QDataStream>
 
 #include "../Task/Task.h"
 #include "../TaskDialog/TaskDialog.h"
@@ -12,13 +15,13 @@
 #include "SimpleTimerDialog.h"
 #include "Config.h"
 
-
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow),
   m_pTaskListModel(new TaskListModel(this)),
   m_pTaskDialog(new TaskDialog(m_pTaskListModel, this)),
-  m_pTrayIcon(new TrayIcon(this))
+  m_pTrayIcon(new TrayIcon(this)),
+  m_pTasksFile(new QFile(this))
 {
   ui->setupUi(this);
 
@@ -38,6 +41,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
   qDebug() << APPLICATION_VERSION_MAJOR << "." <<
               APPLICATION_VERSION_MINOR;
+
+  QString strTaskFilePath = QDesktopServices::storageLocation(QDesktopServices::HomeLocation) + "/.SimpleTaskManager";
+  m_pTasksFile->setFileName(strTaskFilePath);
+  if (!m_pTasksFile->open(QIODevice::WriteOnly)) {
+      QMessageBox::critical(this, tr("File error"), tr("File couldnt be found or created."));
+      qApp->exit();
+  }
+
+  QDataStream dataStream(m_pTasksFile);
+  dataStream  << QString("abc");
+
 
 }
 

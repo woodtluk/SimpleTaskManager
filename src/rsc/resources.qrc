@@ -1,11 +1,13 @@
 <RCC>
-  <qresource prefix="/img">
-    <file>go-up.png</file>
-    <file>go-bottom.png</file>
-    <file>go-down.png</file>
-    <file>go-top.png</file>
-    <file>applications-office.png</file>
-    <file>list-add.png</file>
-    <file>list-remove.png</file>
-  </qresource>
+    <qresource prefix="/img">
+        <file>go-up.png</file>
+        <file>go-bottom.png</file>
+        <file>go-down.png</file>
+        <file>go-top.png</file>
+        <file>applications-office.png</file>
+        <file>list-add.png</file>
+        <file>list-remove.png</file>
+        <file>folder.png</file>
+        <file>save_diskette_floppy_disk.png</file>
+    </qresource>
 </RCC>

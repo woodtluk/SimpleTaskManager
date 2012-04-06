@@ -14,6 +14,7 @@ class QModelIndex;
 class TaskDialog;
 class TaskListModel;
 class SimpleTimerDialog;
+class QFile;
 
 namespace Ui {
 class MainWindow;
@@ -52,6 +53,8 @@ private:
   TaskListModel *m_pTaskListModel;
   TaskDialog* m_pTaskDialog;
   TrayIcon *m_pTrayIcon;
+
+  QFile * m_pTasksFile;
 };
 
 #endif // MAINWINDOW_H
