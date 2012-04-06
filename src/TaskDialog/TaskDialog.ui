@@ -140,18 +140,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QTextEdit" name="m_pTextEditTaskDescription">
+    <widget class="QPlainTextEdit" name="m_pTextEditTaskDescription">
      <property name="maximumSize">
       <size>
        <width>16777215</width>
        <height>16777215</height>
       </size>
-     </property>
-     <property name="tabChangesFocus">
-      <bool>true</bool>
-     </property>
-     <property name="acceptRichText">
-      <bool>false</bool>
      </property>
     </widget>
    </item>

@@ -101,7 +101,7 @@ void MainWindow::showMessage(QString strName) const {
   m_pTrayIcon->show();
   m_pTrayIcon->showMessage(strName, "Time:" + QTime::currentTime().toString(), QSystemTrayIcon::Information);
 
-  QMessageBox::information(NULL, "Timer elapsed!", strName);
+  //QMessageBox::information(NULL, "Timer elapsed!", strName);
 }
 
 void MainWindow::checkIfAlarm(TaskPtr task) const {
